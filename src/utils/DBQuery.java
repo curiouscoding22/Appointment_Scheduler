@@ -83,7 +83,7 @@ public class DBQuery {
         return firstLevels;
     }
 
-    public static void addNewCustomer(Customer customer) throws SQLException, ClassNotFoundException {
+    /*public static void addNewCustomer(Customer customer) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
         PreparedStatement statement = connection.prepareStatement("INSERT INTO customers (NULL, customer_name, address, postal_code, phone, create_date, created_by, last_update, last_updated_by, division_ID) VALUES (?, ?, ?, ?, ?, now(), 'User', now(), 'User', ?)") ;
         statement.setInt(1, customer.getCustomerID());
@@ -93,20 +93,24 @@ public class DBQuery {
         statement.setString(5, customer.getPhone());
         //statement.setInt(6, customer.getFirstDivisionID());
         statement.execute();
-    }
+    }*/
 
-    /*public static void addNewCustomer(Customer customer) throws SQLException, ClassNotFoundException {
-        String sqlQuery = "INSERT INTO customers VALUES (NULL, ?, ?, ?, ?, now(), 'User', now(), 'User', ?)";
+    public static void addNewCustomer(Customer customer) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
-        PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS) ;
+        String sqlQuery =
+                "INSERT INTO customers (customer_ID, customer_name, address, postal_code, phone, create_date, created_by, last_update, last_updated_by, division_ID) " +
+                        "VALUES (NULL, ?, ?, ?, ?, now(), 'User', now(), 'User', ?)";
+        PreparedStatement statement = connection.prepareStatement(sqlQuery) ;
         //statement.setInt(1, customer.getCustomerID());
         statement.setString(1, customer.getCustomerName());
         statement.setString(2, customer.getAddress());
         statement.setString(3, customer.getPostCode());
         statement.setString(4, customer.getPhone());
-        statement.setInt(5, customer.getFirstLevel().getFirstLevelID());
+        statement.setInt(5, customer.getFirstLevelID());
         statement.execute();
-    }*/
+
+
+    }
 
 
 }

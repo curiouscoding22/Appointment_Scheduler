@@ -37,7 +37,7 @@ public class AddCustomer implements Initializable {
 
 
     public void saveNewCustomer(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        int newID = Integer.parseInt(newCustID.getText());
+        int newID = Customer.customers.size() + 1;
         String newName = newCustName.getText();
         String newAddress = newCustAddress.getText();
         String newPhone = newCustPhone.getText();
@@ -61,28 +61,25 @@ public class AddCustomer implements Initializable {
         });
     }
 
-    public ObservableList<FirstLevel> setDivision(){
-        ObservableList<FirstLevel> sortedFirstLevel = FXCollections.observableArrayList();
-        int ID = newCustCountry.getValue().getCountryID();
-        try {
-            FirstLevel.firstLevels = DBQuery.getFirstLevel();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        for(int i = 0; i < FirstLevel.firstLevels.size(); i++){
-            if(FirstLevel.firstLevels.get(i).getCountryID() == ID){
-                sortedFirstLevel.add(FirstLevel.firstLevels.get(i));
+
+    public void setDivisons(ActionEvent actionEvent) {
+        Country country = newCustCountry.getValue();
+        ObservableList<FirstLevel> divisions = newCustFirst.getItems();
+        ObservableList<FirstLevel> sortedDivisions = FXCollections.observableArrayList();
+        for(FirstLevel div: divisions){
+            if(country.getCountryID() == div.getCountryID()){
+                sortedDivisions.add(div);
             }
         }
-        return sortedFirstLevel;
-    }
+        newCustFirst.setItems(sortedDivisions);
 
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        newCustID.setText("Auto-generated");
 
         try {
             Country.countries = DBQuery.getCountries();
@@ -102,4 +99,6 @@ public class AddCustomer implements Initializable {
         }
         newCustFirst.setItems(FirstLevel.firstLevels);
     }
+
+
 }
