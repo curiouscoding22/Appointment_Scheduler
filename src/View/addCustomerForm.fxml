@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="487.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddCustomer">
+   <children>
+      <TextField fx:id="newCustID" layoutX="180.0" layoutY="93.0" />
+      <TextField fx:id="newCustName" layoutX="180.0" layoutY="132.0" />
+      <TextField fx:id="newCustAddress" layoutX="180.0" layoutY="173.0" />
+      <TextField fx:id="newCustPhone" layoutX="180.0" layoutY="213.0" />
+      <TextField fx:id="newCustPost" layoutX="180.0" layoutY="253.0" />
+      <Label layoutX="74.0" layoutY="97.0" text="Customer ID" />
+      <Label layoutX="74.0" layoutY="136.0" text="Customer Name" />
+      <Label layoutX="74.0" layoutY="177.0" text="Address" />
+      <Label layoutX="74.0" layoutY="217.0" text="Phone Number" />
+      <Label layoutX="74.0" layoutY="257.0" text="Post Code" />
+      <ComboBox fx:id="newCustCountry" layoutX="179.0" layoutY="297.0" prefWidth="150.0" />
+      <ComboBox fx:id="newCustFirst" layoutX="179.0" layoutY="346.0" prefWidth="150.0" />
+      <Label layoutX="74.0" layoutY="301.0" text="Country" />
+      <Label layoutX="74.0" layoutY="350.0" text="First Division" />
+      <Label layoutX="40.0" layoutY="38.0" text="Add Customer">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="saveNewCustomer" layoutX="243.0" layoutY="407.0" mnemonicParsing="false" onAction="#saveNewCustomer" text="Save" />
+      <Button fx:id="cancelButton" layoutX="303.0" layoutY="407.0" mnemonicParsing="false" onAction="#cancelAndExit" text="Cancel" />
+   </children>
+</AnchorPane>

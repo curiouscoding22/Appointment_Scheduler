@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainScreen">
+   <children>
+      <TableView fx:id="appointmentTable" layoutX="23.0" layoutY="69.0" prefHeight="370.0" prefWidth="807.0">
+        <columns>
+          <TableColumn fx:id="appointmentIDColumn" prefWidth="75.0" text="Appointment ID" />
+          <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="75.0" text="Description" />
+            <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
+            <TableColumn fx:id="contactColumn" prefWidth="75.0" text="Contact" />
+            <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
+            <TableColumn fx:id="startColumn" prefWidth="97.20001220703125" text="Start" />
+            <TableColumn fx:id="endColumn" prefWidth="108.4000244140625" text="End" />
+            <TableColumn fx:id="customerIDColumn" prefWidth="149.79998779296875" text="Customer ID" />
+        </columns>
+      </TableView>
+      <Button fx:id="customerButton" layoutX="719.0" layoutY="37.0" mnemonicParsing="false" onAction="#changeToCustomer" text="Customers" />
+   </children>
+</Pane>
