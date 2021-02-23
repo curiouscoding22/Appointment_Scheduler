@@ -81,11 +81,34 @@ public class CustomerMenu implements Initializable {
     }
 
     public void editCustomer(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/View/editCustomerForm.fxml"));
-        Stage editCustomer = new Stage();
-        editCustomer.setTitle("Add Customer");
-        editCustomer.setScene(new Scene(root, 421, 487));
-        editCustomer.show();
+        if(customerTable.getSelectionModel().getSelectedItem() != null) {
+            /*try{
+                Parent root = FXMLLoader.load(getClass().getResource("/View/editCustomerForm.fxml"));
+                Stage editCustomer = new Stage();
+                editCustomer.setTitle("Update Customer");
+                editCustomer.setScene(new Scene(root, 421, 487));
+                editCustomer.show();
+                EditCustomerForm controller = loader.get controller*/
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/editCustomerForm.fxml"));
+                Parent mainScreen = loader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Update Product");
+                stage.setScene(new Scene(mainScreen, 421, 487));
+                stage.show();
+                EditCustomerForm controller = loader.getController();
+                Customer selectCustomer = customerTable.getSelectionModel().getSelectedItem();
+                controller.retrieveSelectCustomer(selectCustomer);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No Customer Selected");
+            alert.setContentText("Select a customer from the list to update");
+            alert.showAndWait();
+        }
     }
 
     public void exitApplication(ActionEvent actionEvent) {

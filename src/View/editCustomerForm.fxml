@@ -6,13 +6,13 @@
 
 <AnchorPane prefHeight="487.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditCustomerForm">
    <children>
-      <TextField layoutX="180.0" layoutY="93.0" />
-      <TextField layoutX="180.0" layoutY="135.0" />
-      <TextField layoutX="180.0" layoutY="179.0" />
-      <TextField layoutX="180.0" layoutY="219.0" />
-      <TextField layoutX="180.0" layoutY="262.0" />
-      <ComboBox layoutX="179.0" layoutY="306.0" prefWidth="150.0" />
-      <ComboBox layoutX="179.0" layoutY="348.0" prefWidth="150.0" />
+      <TextField fx:id="updateCustID" layoutX="180.0" layoutY="93.0" />
+      <TextField fx:id="updateCustName" layoutX="180.0" layoutY="135.0" />
+      <TextField fx:id="updateCustAddress" layoutX="180.0" layoutY="179.0" />
+      <TextField fx:id="updatePostCode" layoutX="180.0" layoutY="219.0" />
+      <TextField fx:id="updatePhone" layoutX="180.0" layoutY="262.0" />
+      <ComboBox fx:id="updateCountry" layoutX="179.0" layoutY="306.0" prefWidth="150.0" />
+      <ComboBox fx:id="updateFirstDiv" layoutX="179.0" layoutY="348.0" prefWidth="150.0" />
       <Label layoutX="74.0" layoutY="97.0" text="Customer ID" />
       <Label layoutX="74.0" layoutY="139.0" text="Customer Name" />
       <Label layoutX="74.0" layoutY="183.0" text="Address" />
@@ -25,5 +25,7 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <Button layoutX="228.0" layoutY="411.0" mnemonicParsing="false" text="Update" />
+      <Button fx:id="cancelButton" layoutX="303.0" layoutY="411.0" mnemonicParsing="false" onAction="#cancelUpdate" text="Cancel" />
    </children>
 </AnchorPane>
