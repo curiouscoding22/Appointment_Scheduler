@@ -33,7 +33,13 @@ public class CustomerMenu implements Initializable {
     @FXML private Button exitApplication;
 
 
-
+    /*public void resetCustomerTable() {
+        try {
+            customerTable.setItems(DBQuery.getCustomers());
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+    }*/
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

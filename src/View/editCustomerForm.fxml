@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.EditCustomerForm"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="487.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditCustomerForm">
+   <children>
+      <TextField layoutX="180.0" layoutY="93.0" />
+      <TextField layoutX="180.0" layoutY="135.0" />
+      <TextField layoutX="180.0" layoutY="179.0" />
+      <TextField layoutX="180.0" layoutY="219.0" />
+      <TextField layoutX="180.0" layoutY="262.0" />
+      <ComboBox layoutX="179.0" layoutY="306.0" prefWidth="150.0" />
+      <ComboBox layoutX="179.0" layoutY="348.0" prefWidth="150.0" />
+      <Label layoutX="74.0" layoutY="97.0" text="Customer ID" />
+      <Label layoutX="74.0" layoutY="139.0" text="Customer Name" />
+      <Label layoutX="74.0" layoutY="183.0" text="Address" />
+      <Label layoutX="74.0" layoutY="223.0" text="Post Code" />
+      <Label layoutX="74.0" layoutY="266.0" text="Phone Number" />
+      <Label layoutX="74.0" layoutY="310.0" text="Country" />
+      <Label layoutX="74.0" layoutY="352.0" text="First Division" />
+      <Label layoutX="43.0" layoutY="36.0" text="Update Customer">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>
