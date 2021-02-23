@@ -3,8 +3,6 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.nio.file.attribute.FileTime;
-
 public class Customer {
 
     private int customerID;
@@ -14,7 +12,6 @@ public class Customer {
     private String phone;
     private String firstLevel;
     private int firstLevelID;
-    //private FirstLevel firstLevel;
 
     public Customer(){
 
@@ -43,6 +40,7 @@ public class Customer {
         this.postCode = postCode;
         this.phone = phone;
         this.firstLevel = firstLevel;
+        this.firstLevelID = firstLevelID;
     }
 
     public int getCustomerID() {

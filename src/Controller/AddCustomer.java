@@ -43,8 +43,19 @@ public class AddCustomer implements Initializable {
         String newPhone = newCustPhone.getText();
         String newPost = newCustPost.getText();
         FirstLevel newFirstID = newCustFirst.getValue();
+        int correctFLID = newFirstID.getFirstLevelID();
 
-        Customer customer = new Customer(newID, newName, newAddress, newPhone, newPost, newFirstID.getFirstLevelName(), newFirstID.getFirstLevelID());
+        Customer customer = new Customer(newID, newName, newAddress, newPhone, newPost, newFirstID.getFirstLevelName(), correctFLID);
+
+        /*System.out.println(customer.getCustomerID());
+        System.out.println(customer.getCustomerName());
+        System.out.println(customer.getAddress());
+        System.out.println(customer.getPhone());
+        System.out.println(customer.getPostCode());
+        System.out.println(customer.getFirstLevelID());
+        System.out.println(customer.getFirstLevel());
+        System.out.println(correctFLID);*/
+
         DBQuery.addNewCustomer(customer);
         //resetCustomerTable();
     }
