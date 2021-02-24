@@ -66,7 +66,7 @@ public class AddCustomer implements Initializable {
 
     public void setDivisons(ActionEvent actionEvent) {
         Country country = newCustCountry.getValue();
-        ObservableList<FirstLevel> divisions = newCustFirst.getItems();
+        ObservableList<FirstLevel> divisions = FirstLevel.firstLevels;
         ObservableList<FirstLevel> sortedDivisions = FXCollections.observableArrayList();
         for(FirstLevel div: divisions){
             if(country.getCountryID() == div.getCountryID()){
@@ -74,7 +74,6 @@ public class AddCustomer implements Initializable {
             }
         }
         newCustFirst.setItems(sortedDivisions);
-
     }
 
 

@@ -97,8 +97,21 @@ public class DBQuery {
         statement.setString(4, customer.getPhone());
         statement.setInt(5, customer.getFirstLevelID());
         statement.execute();
+    }
 
-
+    public static void updateCustomer(Customer customer) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.beginConnection();
+        String sqlQuery =
+                "INSERT INTO customers (customer_ID, customer_name, address, postal_code, phone, last_update, last_updated_by, division_ID) " +
+                        "VALUES (NULL, ?, ?, ?, ?, now(), 'User', ?)";
+        PreparedStatement statement = connection.prepareStatement(sqlQuery) ;
+        //statement.setInt(1, customer.getCustomerID());
+        statement.setString(1, customer.getCustomerName());
+        statement.setString(2, customer.getAddress());
+        statement.setString(3, customer.getPostCode());
+        statement.setString(4, customer.getPhone());
+        statement.setInt(5, customer.getFirstLevelID());
+        statement.execute();
     }
 
 }
