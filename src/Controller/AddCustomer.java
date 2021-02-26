@@ -47,7 +47,7 @@ public class AddCustomer implements Initializable {
 
         Customer customer = new Customer(newID, newName, newAddress, newPost, newPhone, newFirstID.getFirstLevelName(), correctFLID);
         DBQuery.addNewCustomer(customer);
-        //CustomerMenu.resetCustomerTable();
+        DBQuery.updateCustomerList();
     }
 
     public void cancelAndExit(ActionEvent actionEvent) {

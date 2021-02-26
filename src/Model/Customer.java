@@ -83,13 +83,6 @@ public class Customer {
         this.phone = phone;
     }
 
-    /*public FirstLevel getFirstLevel() {
-        return firstLevel;
-    }
-
-    public void setFirstLevel(FirstLevel firstLevel) {
-        this.firstLevel = firstLevel;
-    }*/
 
     public static ObservableList<Customer> customers = FXCollections.observableArrayList();
 }
