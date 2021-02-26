@@ -46,7 +46,6 @@ public class AddCustomer implements Initializable {
         int correctFLID = newFirstID.getFirstLevelID();
 
         Customer customer = new Customer(newID, newName, newAddress, newPost, newPhone, newFirstID.getFirstLevelName(), correctFLID);
-
         DBQuery.addNewCustomer(customer);
         //CustomerMenu.resetCustomerTable();
     }
@@ -69,7 +68,7 @@ public class AddCustomer implements Initializable {
         ObservableList<FirstLevel> divisions = FirstLevel.firstLevels;
         ObservableList<FirstLevel> sortedDivisions = FXCollections.observableArrayList();
         for(FirstLevel div: divisions){
-            if(country.getCountryID() == div.getCountryID()){
+            if(country.getCountryID() == div.getCountry().getCountryID()){
                 sortedDivisions.add(div);
             }
         }
@@ -81,6 +80,7 @@ public class AddCustomer implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         newCustID.setText("Auto-generated");
+        newCustID.setEditable(false);
 
         try {
             Country.countries = DBQuery.getCountries();

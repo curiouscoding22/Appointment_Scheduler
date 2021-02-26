@@ -31,6 +31,15 @@ public class Country {
         this.countryName = countryName;
     }
 
+    public static Country sortCountry(int sqlID){
+        for(int i = 0; i < countries.size(); ++i){
+            if(sqlID == countries.get(i).getCountryID()){
+                return countries.get(i);
+            }
+        }
+        return null;
+    }
+
     public static ObservableList<Country> countries = FXCollections.observableArrayList();
 
     @Override

@@ -25,7 +25,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="228.0" layoutY="411.0" mnemonicParsing="false" text="Update" />
+      <Button layoutX="228.0" layoutY="411.0" mnemonicParsing="false" onAction="#saveUpdatedCustomer" text="Update" />
       <Button fx:id="cancelButton" layoutX="303.0" layoutY="411.0" mnemonicParsing="false" onAction="#cancelUpdate" text="Cancel" />
    </children>
 </AnchorPane>

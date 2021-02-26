@@ -18,23 +18,15 @@ import java.util.ResourceBundle;
 
 public class EditCustomerForm implements Initializable {
 
-    @FXML
-    private TextField updateCustID;
-    @FXML
-    private TextField updateCustName;
-    @FXML
-    private TextField updateCustAddress;
-    @FXML
-    private TextField updatePostCode;
-    @FXML
-    private TextField updatePhone;
-    @FXML
-    private ComboBox updateCountry;
-    @FXML
-    private ComboBox updateFirstDiv;
+    @FXML private TextField updateCustID;
+    @FXML private TextField updateCustName;
+    @FXML private TextField updateCustAddress;
+    @FXML private TextField updatePostCode;
+    @FXML private TextField updatePhone;
+    @FXML private ComboBox updateCountry;
+    @FXML private ComboBox updateFirstDiv;
 
-    @FXML
-    private Button cancelButton;
+    @FXML private Button cancelButton;
 
 
     private Customer customer;
@@ -47,20 +39,13 @@ public class EditCustomerForm implements Initializable {
         updateCustAddress.setText(customer.getAddress());
         updatePostCode.setText(customer.getPostCode());
         updatePhone.setText(customer.getPhone());
-        int tempFirstDiv = customer.getFirstLevelID();
-
-        updateFirstDiv.setPromptText(customer.getFirstLevel());
-
-        System.out.println(customer.getFirstLevel());
 
         for(int i = 0; i < FirstLevel.firstLevels.size(); ++i){
-            System.out.println(FirstLevel.firstLevels.get(i).getFirstLevelID());
+            if(customer.getFirstLevel().equals(FirstLevel.firstLevels.get(i).getFirstLevelName())) {
+                updateFirstDiv.setValue(FirstLevel.firstLevels.get(i));
+                updateCountry.setValue(FirstLevel.firstLevels.get(i).getCountry());
+            }
         }
-
-
-
-
-
     }
 
     public void cancelUpdate(ActionEvent actionEvent) {
@@ -80,7 +65,7 @@ public class EditCustomerForm implements Initializable {
         ObservableList<FirstLevel> divisions = FirstLevel.firstLevels;
         ObservableList<FirstLevel> sortedDivisions = FXCollections.observableArrayList();
         for (FirstLevel div : divisions) {
-            if (country.getCountryID() == div.getCountryID()) {
+            if (country.getCountryID() == div.getCountry().getCountryID()) {
                 sortedDivisions.add(div);
             }
         }
@@ -89,6 +74,8 @@ public class EditCustomerForm implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        updateCustID.setEditable(false);
 
         try {
             Country.countries = DBQuery.getCountries();
@@ -109,6 +96,32 @@ public class EditCustomerForm implements Initializable {
         updateFirstDiv.setItems(FirstLevel.firstLevels);
 
     }
+
+    public void saveUpdatedCustomer(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        int updateID = Integer.parseInt(updateCustID.getText());
+        String updateName = updateCustName.getText();
+        String updateAddress = updateCustAddress.getText();
+        String updatedPhone = updatePhone.getText();
+        String updatePost = updatePostCode.getText();
+        FirstLevel updateFirstID = (FirstLevel) updateFirstDiv.getValue();
+        int updateFLID = updateFirstID.getFirstLevelID();
+
+        Customer updatedCustomer = new Customer(updateID, updateName, updateAddress, updatePost, updatedPhone, updateFirstID.getFirstLevelName(),updateFLID);
+
+        DBQuery.updateCustomer(updatedCustomer);
+
+        /*System.out.println(updatedCustomer.getCustomerID());
+        System.out.println(updatedCustomer.getCustomerName());
+        System.out.println(updatedCustomer.getAddress());
+        System.out.println(updatedCustomer.getPostCode());
+        System.out.println(updatedCustomer.getPhone());
+        System.out.println(updatedCustomer.getFirstLevelID());
+        System.out.println(updatedCustomer.getFirstLevel());*/
+
+
+    }
+
+
 }
 
 

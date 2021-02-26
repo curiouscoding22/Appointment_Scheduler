@@ -6,14 +6,14 @@ import javafx.collections.ObservableList;
 public class FirstLevel {
     private int firstLevelID;
     private String firstLevelName;
-    private int countryID;
+    private Country country;
 
     public FirstLevel(){}
 
-    public FirstLevel(int firstLevelID, String firstLevelName, int countryID) {
+    public FirstLevel(int firstLevelID, String firstLevelName, Country country) {
         this.firstLevelID = firstLevelID;
         this.firstLevelName = firstLevelName;
-        this.countryID = countryID;
+        this.country = country;
     }
 
     public int getFirstLevelID() {
@@ -32,12 +32,12 @@ public class FirstLevel {
         this.firstLevelName = firstLevelName;
     }
 
-    public void setCountryID(int countryID){
-        this.countryID = countryID;
+    public Country getCountry() {
+        return country;
     }
 
-    public int getCountryID(){
-        return countryID;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public static ObservableList<FirstLevel> firstLevels = FXCollections.observableArrayList();

@@ -78,7 +78,7 @@ public class DBQuery {
             FirstLevel firstLevel = new FirstLevel();
             firstLevel.setFirstLevelID(result.getInt("division_ID"));
             firstLevel.setFirstLevelName(result.getString("division"));
-            firstLevel.setCountryID(result.getInt("country_ID"));
+            firstLevel.setCountry(Country.sortCountry(result.getInt("country_ID")));
             firstLevels.add(firstLevel);
         }
         return firstLevels;
