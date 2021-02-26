@@ -54,6 +54,24 @@ public class DBQuery {
         return customers;
     }
 
+    /*public static void getCustomers() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.beginConnection();
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT customer_ID, customer_Name, address, postal_Code, phone, division " +
+                        "FROM customers,first_level_divisions WHERE customers.division_ID = first_level_divisions.division_ID");
+        ResultSet result = statement.executeQuery();
+        while(result.next()){
+            Customer customer = new Customer();
+            customer.setCustomerID(result.getInt("customer_ID"));
+            customer.setCustomerName(result.getString("customer_Name"));
+            customer.setAddress(result.getString("address"));
+            customer.setFirstLevel(result.getString("division"));
+            customer.setPostCode(result.getString("postal_code"));
+            customer.setPhone(result.getString("phone"));
+            Customer.customers.add(customer);
+        }
+    }*/
+
     public static ObservableList<Country> getCountries() throws SQLException, ClassNotFoundException {
         ObservableList<Country> DBcountries = FXCollections.observableArrayList();
         Connection connection = DBConnection.beginConnection();
@@ -101,7 +119,7 @@ public class DBQuery {
     public static void updateCustomer(Customer customer) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
         String sqlQuery =
-                "UPDATE customer SET customer_name = ?, address = ?, postal_code = ?, phone = ?, last_update = now(), last_updated_by = 'User', division_ID = ? WHERE customer_ID = ?";
+                "UPDATE customers SET customer_name = ?, address = ?, postal_code = ?, phone = ?, last_update = now(), last_updated_by = 'User', division_ID = ? WHERE customer_ID = ?";
         PreparedStatement statement = connection.prepareStatement(sqlQuery) ;
         statement.setString(1, customer.getCustomerName());
         statement.setString(2, customer.getAddress());

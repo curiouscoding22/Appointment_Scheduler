@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class CustomerMenu implements Initializable {
 
-    @FXML private TableView<Customer> customerTable;
+    @FXML public TableView<Customer> customerTable;
     @FXML private TableColumn<Customer, Integer> customerID;
     @FXML private TableColumn<Customer, String> customer;
     @FXML private TableColumn<Customer, String> address;

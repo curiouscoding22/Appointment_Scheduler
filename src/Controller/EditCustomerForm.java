@@ -109,7 +109,7 @@ public class EditCustomerForm implements Initializable {
         Customer updatedCustomer = new Customer(updateID, updateName, updateAddress, updatePost, updatedPhone, updateFirstID.getFirstLevelName(),updateFLID);
 
         DBQuery.updateCustomer(updatedCustomer);
-
+        //DBQuery.updateCustomerList();
 
         /*System.out.println(updatedCustomer.getCustomerID());
         System.out.println(updatedCustomer.getCustomerName());
