@@ -110,6 +110,7 @@ public class EditCustomerForm implements Initializable {
 
         DBQuery.updateCustomer(updatedCustomer);
 
+
         /*System.out.println(updatedCustomer.getCustomerID());
         System.out.println(updatedCustomer.getCustomerName());
         System.out.println(updatedCustomer.getAddress());
@@ -117,8 +118,6 @@ public class EditCustomerForm implements Initializable {
         System.out.println(updatedCustomer.getPhone());
         System.out.println(updatedCustomer.getFirstLevelID());
         System.out.println(updatedCustomer.getFirstLevel());*/
-
-
     }
 
 

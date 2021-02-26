@@ -1,6 +1,5 @@
 package utils;
 
-import Controller.CustomerMenu;
 import Model.Appointment;
 import Model.Country;
 import Model.Customer;
@@ -102,16 +101,34 @@ public class DBQuery {
     public static void updateCustomer(Customer customer) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
         String sqlQuery =
-                "INSERT INTO customers (customer_ID, customer_name, address, postal_code, phone, last_update, last_updated_by, division_ID) " +
-                        "VALUES (NULL, ?, ?, ?, ?, now(), 'User', ?)";
+                "UPDATE customer SET customer_name = ?, address = ?, postal_code = ?, phone = ?, last_update = now(), last_updated_by = 'User', division_ID = ? WHERE customer_ID = ?";
         PreparedStatement statement = connection.prepareStatement(sqlQuery) ;
-        //statement.setInt(1, customer.getCustomerID());
         statement.setString(1, customer.getCustomerName());
         statement.setString(2, customer.getAddress());
         statement.setString(3, customer.getPostCode());
         statement.setString(4, customer.getPhone());
         statement.setInt(5, customer.getFirstLevelID());
+        statement.setInt(6, customer.getCustomerID());
         statement.execute();
+    }
+
+    public static void updateCustomerList() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.beginConnection();
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT customer_ID, customer_Name, address, postal_Code, phone, division " +
+                        "FROM customers,first_level_divisions WHERE customers.division_ID = first_level_divisions.division_ID");
+        ResultSet result = statement.executeQuery();
+        Customer.customers.clear();
+        while(result.next()){
+            Customer customer = new Customer();
+            customer.setCustomerID(result.getInt("customer_ID"));
+            customer.setCustomerName(result.getString("customer_Name"));
+            customer.setAddress(result.getString("address"));
+            customer.setFirstLevel(result.getString("division"));
+            customer.setPostCode(result.getString("postal_code"));
+            customer.setPhone(result.getString("phone"));
+            Customer.customers.add(customer);
+        }
     }
 
 }
