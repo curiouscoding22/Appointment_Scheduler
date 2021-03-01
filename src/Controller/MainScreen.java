@@ -9,8 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import utils.DBQuery;
@@ -33,6 +32,8 @@ public class MainScreen implements Initializable {
     @FXML private TableColumn<Appointment, LocalTime> startColumn;
     @FXML private TableColumn<Appointment, LocalTime> endColumn;
     @FXML private TableColumn<Appointment, Integer> customerIDColumn;
+
+    @FXML private Button exitButton;
 
 
     @Override
@@ -67,5 +68,26 @@ public class MainScreen implements Initializable {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void addAppointment(ActionEvent actionEvent) {
+    }
+
+    public void updateAppointment(ActionEvent actionEvent) {
+    }
+
+    public void deleteAppointment(ActionEvent actionEvent) {
+    }
+
+    public void exitFromMain(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit Application");
+        alert.setContentText("Are you sure you want to cancel?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Stage stage = (Stage) exitButton.getScene().getWindow();
+                stage.close();
+            }
+        });
     }
 }
