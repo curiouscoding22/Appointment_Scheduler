@@ -70,10 +70,20 @@ public class MainScreen implements Initializable {
         stage.show();
     }
 
-    public void addAppointment(ActionEvent actionEvent) {
+    public void addAppointment(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/View/AddAppointment.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
-    public void updateAppointment(ActionEvent actionEvent) {
+    public void updateAppointment(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/View/EditAppointment.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void deleteAppointment(ActionEvent actionEvent) {
