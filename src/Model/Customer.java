@@ -85,4 +85,9 @@ public class Customer {
 
 
     public static ObservableList<Customer> customers = FXCollections.observableArrayList();
+
+    @Override
+    public String toString(){
+        return(customerName);
+    }
 }

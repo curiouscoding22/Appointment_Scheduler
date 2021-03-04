@@ -71,19 +71,19 @@ public class MainScreen implements Initializable {
     }
 
     public void addAppointment(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/View/AddAppointment.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("/View/addAppointment.fxml"));
+        Stage addAppointment = new Stage();
+        addAppointment.setTitle("Add Appointment");
+        addAppointment.setScene(new Scene(root, 428, 539));
+        addAppointment.show();
     }
 
     public void updateAppointment(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/View/EditAppointment.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("/View/EditAppointment.fxml"));
+        Stage addCustomer = new Stage();
+        addCustomer.setTitle("Edit Appointment");
+        addCustomer.setScene(new Scene(root, 421, 487));
+        addCustomer.show();
     }
 
     public void deleteAppointment(ActionEvent actionEvent) {
