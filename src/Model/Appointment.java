@@ -7,23 +7,24 @@ import java.time.ZonedDateTime;
 public class Appointment {
 
     private int appointmentID, customerID;
-    private String title, description, location, type, contact;
+    private String title, description, location, type;
     private LocalDateTime start, end;
+    private Contact contact;
 
     public Appointment(){
 
     }
 
-    public Appointment(int appointmentID, int customerID, String contact, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end) {
+    public Appointment(int appointmentID, int customerID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Contact contact) {
         this.appointmentID = appointmentID;
         this.customerID = customerID;
-        this.contact = contact;
         this.title = title;
         this.description = description;
         this.location = location;
         this.type = type;
         this.start = start;
         this.end = end;
+        this.contact = contact;
     }
 
     public int getAppointmentID() {
@@ -41,15 +42,6 @@ public class Appointment {
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
 
     public String getTitle() {
         return title;
@@ -97,5 +89,13 @@ public class Appointment {
 
     public void setEnd(LocalDateTime end) {
         this.end = end;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 }

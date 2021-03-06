@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Contact;
 import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,27 +13,43 @@ import utils.DBQuery;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class AddAppointment implements Initializable {
 
-    @FXML private TextField newID;
-    @FXML private TextField newTitle;
-    @FXML private TextField newDescription;
-    @FXML private TextField newLocation;
-    @FXML private ComboBox newContact;
-    @FXML private TextField newType;
-    @FXML private DatePicker newDate;
-    @FXML private ComboBox newStartHr;
-    @FXML private ComboBox newStartMin;
-    @FXML private ComboBox newStartTOD;
-    @FXML private ComboBox newEndHr;
-    @FXML private ComboBox newEndMin;
-    @FXML private ComboBox newEndTOD;
-    @FXML private ComboBox newCustomer;
+    @FXML private TextField ID;
+    @FXML private TextField title;
+    @FXML private TextField description;
+    @FXML private TextField location;
+    @FXML private ComboBox contact;
+    @FXML private TextField type;
+    @FXML private DatePicker date;
+    @FXML private ComboBox startHr;
+    @FXML private ComboBox startMin;
+    @FXML private ComboBox startTOD;
+    @FXML private ComboBox endHr;
+    @FXML private ComboBox endMin;
+    @FXML private ComboBox endTOD;
+    @FXML private ComboBox customer;
     @FXML private Button cancelButton;
 
-    public void saveNewAppointment(ActionEvent actionEvent) {
+    public void saveNewAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        int newID = DBQuery.getAppointments().size() + 1;
+        String newTitle = title.getText();
+        String newDescription = description.getText();
+        String newLocation = location.getText();
+        Contact newContact = (Contact) contact.getValue();
+        String newType = type.getText();
+        LocalDate newDate = date.getValue();
+        if(startTOD.getValue().equals("PM")){
+            //LocalTime newStartTime = LocalTime.of(startHr.getValue(), startMin.getValue());
+        }
+
+        LocalTime newStartTime = (LocalTime) startHr.getValue();
+        LocalTime newEndTime = null;
+
     }
 
     public void cancelAddAppointment(ActionEvent actionEvent) {
@@ -53,12 +70,12 @@ public class AddAppointment implements Initializable {
         ObservableList <Integer> comboHours = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12);
         ObservableList <String> comboMin = FXCollections.observableArrayList("00", "15", "30", "45");
         ObservableList <String> comboTOD = FXCollections.observableArrayList("AM", "PM");
-        newStartHr.setItems(comboHours);
-        newStartMin.setItems(comboMin);
-        newStartTOD.setItems(comboTOD);
-        newEndHr.setItems(comboHours);
-        newEndMin.setItems(comboMin);
-        newEndTOD.setItems(comboTOD);
+        startHr.setItems(comboHours);
+        startMin.setItems(comboMin);
+        startTOD.setItems(comboTOD);
+        endHr.setItems(comboHours);
+        endMin.setItems(comboMin);
+        endTOD.setItems(comboTOD);
 
 
         try {
@@ -68,7 +85,18 @@ public class AddAppointment implements Initializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        newCustomer.setItems(Customer.customers);
+        customer.setItems(Customer.customers);
 
+        try{
+            Contact.contacts = DBQuery.getContacts();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        contact.setItems(Contact.contacts);
+
+        ID.setEditable(false);
     }
 }

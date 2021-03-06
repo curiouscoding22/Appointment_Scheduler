@@ -1,9 +1,6 @@
 package utils;
 
-import Model.Appointment;
-import Model.Country;
-import Model.Customer;
-import Model.FirstLevel;
+import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -54,24 +51,6 @@ public class DBQuery {
         return customers;
     }
 
-    /*public static void getCustomers() throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.beginConnection();
-        PreparedStatement statement = connection.prepareStatement(
-                "SELECT customer_ID, customer_Name, address, postal_Code, phone, division " +
-                        "FROM customers,first_level_divisions WHERE customers.division_ID = first_level_divisions.division_ID");
-        ResultSet result = statement.executeQuery();
-        while(result.next()){
-            Customer customer = new Customer();
-            customer.setCustomerID(result.getInt("customer_ID"));
-            customer.setCustomerName(result.getString("customer_Name"));
-            customer.setAddress(result.getString("address"));
-            customer.setFirstLevel(result.getString("division"));
-            customer.setPostCode(result.getString("postal_code"));
-            customer.setPhone(result.getString("phone"));
-            Customer.customers.add(customer);
-        }
-    }*/
-
     public static ObservableList<Country> getCountries() throws SQLException, ClassNotFoundException {
         ObservableList<Country> DBcountries = FXCollections.observableArrayList();
         Connection connection = DBConnection.beginConnection();
@@ -99,6 +78,21 @@ public class DBQuery {
             firstLevels.add(firstLevel);
         }
         return firstLevels;
+    }
+
+    public static ObservableList<Contact> getContacts() throws SQLException, ClassNotFoundException {
+        ObservableList<Contact> contacts = FXCollections.observableArrayList();
+        Connection connection = DBConnection.beginConnection();
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM contacts");
+        ResultSet result = statement.executeQuery();
+        while(result.next()){
+            Contact contact = new Contact();
+            contact.setContactID(result.getInt("contact_ID"));
+            contact.setContactName((result.getString("contact_name")));
+            contact.setContactEmail(result.getString("email"));
+            contacts.add(contact);
+        }
+        return contacts;
     }
 
     public static void addNewCustomer(Customer customer) throws SQLException, ClassNotFoundException {
@@ -147,6 +141,10 @@ public class DBQuery {
             customer.setPhone(result.getString("phone"));
             Customer.customers.add(customer);
         }
+    }
+
+    public static void addNewAppointment(){
+
     }
 
 }
