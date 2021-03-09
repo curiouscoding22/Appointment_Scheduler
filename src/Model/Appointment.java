@@ -1,21 +1,18 @@
 package Model;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 public class Appointment {
 
-    private int appointmentID, customerID;
+    private int appointmentID, customerID, contactID;
     private String title, description, location, type;
     private LocalDateTime start, end;
-    private Contact contact;
+    private String contact;
 
-    public Appointment(){
+    public Appointment(){}
 
-    }
-
-    public Appointment(int appointmentID, int customerID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Contact contact) {
+    public Appointment(int appointmentID, int customerID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, String contact, int contactID) {
         this.appointmentID = appointmentID;
         this.customerID = customerID;
         this.title = title;
@@ -25,6 +22,7 @@ public class Appointment {
         this.start = start;
         this.end = end;
         this.contact = contact;
+        this.contactID = contactID;
     }
 
     public int getAppointmentID() {
@@ -91,11 +89,19 @@ public class Appointment {
         this.end = end;
     }
 
-    public Contact getContact() {
+    public String getContact() {
         return contact;
     }
 
-    public void setContact(Contact contact) {
+    public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public int getContactID() {
+        return contactID;
+    }
+
+    public void setContactID(int contactID) {
+        this.contactID = contactID;
     }
 }

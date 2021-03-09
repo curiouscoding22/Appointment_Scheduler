@@ -9,7 +9,7 @@ public class DBConnection {
     private static final String vendor = ":mysql:";
     private static final String ipAddress = "//wgudb.ucertify.com/WJ07lye";
 
-    private static final String jdbcURL = protocol + vendor + ipAddress;
+    private static final String jdbcURL = protocol + vendor + ipAddress + "?connectionTimeZone=SERVER";
 
     //Driver Interface Reference
     private static final String MYSQLJDBCDriver = "com.mysql.cj.jdbc.Driver";

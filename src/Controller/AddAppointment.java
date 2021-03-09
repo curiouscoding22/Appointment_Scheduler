@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Appointment;
 import Model.Contact;
 import Model.Customer;
 import javafx.collections.FXCollections;
@@ -9,12 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
 import utils.DBQuery;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AddAppointment implements Initializable {
@@ -25,12 +27,12 @@ public class AddAppointment implements Initializable {
     @FXML private TextField location;
     @FXML private ComboBox contact;
     @FXML private TextField type;
-    @FXML private DatePicker date;
-    @FXML private ComboBox startHr;
-    @FXML private ComboBox startMin;
+    @FXML private DatePicker startDate;
+    @FXML private ComboBox<Integer> startHr;
+    @FXML private ComboBox <String> startMin;
     @FXML private ComboBox startTOD;
-    @FXML private ComboBox endHr;
-    @FXML private ComboBox endMin;
+    @FXML private ComboBox<Integer> endHr;
+    @FXML private ComboBox <String>endMin;
     @FXML private ComboBox endTOD;
     @FXML private ComboBox customer;
     @FXML private Button cancelButton;
@@ -41,14 +43,58 @@ public class AddAppointment implements Initializable {
         String newDescription = description.getText();
         String newLocation = location.getText();
         Contact newContact = (Contact) contact.getValue();
+        String meetContact = newContact.getContactName();
+        int contactMeet = newContact.getContactID();
         String newType = type.getText();
-        LocalDate newDate = date.getValue();
-        if(startTOD.getValue().equals("PM")){
-            //LocalTime newStartTime = LocalTime.of(startHr.getValue(), startMin.getValue());
-        }
+        LocalDate newDate = startDate.getValue();
 
-        LocalTime newStartTime = (LocalTime) startHr.getValue();
-        LocalTime newEndTime = null;
+        int sHour = startHr.getValue();
+        if(startHr.getValue().equals(12) && startTOD.getValue().equals("PM")){
+            startHr.getValue().equals(12);
+        }
+        else if(startTOD.getValue().equals("PM")){
+            sHour += 12;
+        }
+        String startHour = String.valueOf(sHour);
+        String startMinute = startMin.getValue();
+        if(startHour.length() < 2){
+            startHour = "0" + startHour;
+        }
+        if(startMinute.length() < 2){
+            startMinute = "0" + startMinute;
+        }
+        LocalTime meetingStartTime = LocalTime.parse(startHour + ":" + startMinute);
+        LocalDateTime startMeeting = LocalDateTime.of(newDate, meetingStartTime);
+        //ZonedDateTime startMeeting = ZonedDateTime.of(newDate, meetingStartTime, ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC"));
+
+
+        int eHour = endHr.getValue();
+        if(endHr.getValue().equals(12) && endTOD.getValue().equals("PM")){
+            endHr.getValue().equals(12);
+        }
+        else if(endTOD.getValue().equals("PM")){
+            eHour += 12;
+        }
+        String endHour = String.valueOf(eHour);
+        String endMinute = endMin.getValue();
+        if(endHour.length() < 2){
+            endHour = "0" + endHour;
+        }
+        if(endMinute.length() < 2){
+            endMinute = "0" + endMinute;
+        }
+        LocalTime meetingEndTime = LocalTime.parse(endHour + ":" + endMinute);
+        LocalDateTime endMeeting = LocalDateTime.of(newDate, meetingEndTime);
+        //ZonedDateTime endMeeting = ZonedDateTime.of(newDate, meetingEndTime, ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC"));
+
+        Customer selectedCustomer = (Customer) customer.getValue();
+        int custID = selectedCustomer.getCustomerID();
+
+        Appointment appointment = new Appointment(newID, custID, newTitle, newDescription, newLocation, newType, startMeeting, endMeeting, meetContact, contactMeet);
+
+        System.out.println(newDate);
+
+        DBQuery.addNewAppointment(appointment);
 
     }
 

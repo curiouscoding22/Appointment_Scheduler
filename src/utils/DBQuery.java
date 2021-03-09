@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.ZoneId;
 
 public class DBQuery {
 
@@ -23,7 +24,7 @@ public class DBQuery {
             appointment.setLocation(result.getString("location"));
             appointment.setType(result.getString("type"));
             appointment.setStart(result.getTimestamp("start").toLocalDateTime());
-            appointment.setEnd((result.getTimestamp("end").toLocalDateTime()));
+            appointment.setEnd((result.getTimestamp("end").toLocalDateTime()/*.atZone(ZoneId.systemDefault()))*/));
             appointment.setCustomerID(result.getInt("customer_ID"));
             appointment.setContact(result.getString("contact_Name"));
             appointments.add(appointment);
@@ -143,8 +144,23 @@ public class DBQuery {
         }
     }
 
-    public static void addNewAppointment(){
-
+    public static void addNewAppointment(Appointment appointment) throws SQLException, ClassNotFoundException {
+        Timestamp startTime = Timestamp.valueOf(appointment.getStart());
+        Timestamp endTime = Timestamp.valueOf(appointment.getEnd());
+        Connection connection = DBConnection.beginConnection();
+        String query =
+                "INSERT INTO appointments(appointment_ID, title, description, location, type, start, end, create_date, created_by, last_update, last_updated_by, customer_ID, user_ID, contact_ID)" +
+                        "VALUES(NULL, ?, ?, ?, ?, ?, ?, now(), 'User', now(), 'User', ?, NULL, ?)";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, appointment.getTitle());
+        statement.setString(2, appointment.getDescription());
+        statement.setString(3, appointment.getLocation());
+        statement.setString(4, appointment.getType());
+        statement.setTimestamp(5, startTime);
+        statement.setTimestamp(6, endTime);
+        statement.setInt(7, appointment.getCustomerID());
+        statement.setInt(8, appointment.getContactID());
+        statement.execute();
     }
 
 }
