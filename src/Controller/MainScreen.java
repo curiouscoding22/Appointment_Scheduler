@@ -79,11 +79,23 @@ public class MainScreen implements Initializable {
     }
 
     public void updateAppointment(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/View/EditAppointment.fxml"));
-        Stage addCustomer = new Stage();
-        addCustomer.setTitle("Edit Appointment");
-        addCustomer.setScene(new Scene(root, 421, 487));
-        addCustomer.show();
+        if(appointmentTable.getSelectionModel().getSelectedItem() != null){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/editCustomerForm.fxml"));
+            Parent mainScreen = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Update Product");
+            stage.setScene(new Scene(mainScreen, 421, 487));
+            stage.show();
+            EditAppointment controller = loader.getController();
+            Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
+            controller.retrieveSelectAppointment(appointment);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No Appointment Selected");
+            alert.setContentText("Select an appointment from the list to update");
+            alert.showAndWait();
+        }
+
     }
 
     public void deleteAppointment(ActionEvent actionEvent) {
