@@ -28,18 +28,7 @@ public class CustomerMenu implements Initializable {
     @FXML private TableColumn<Customer, String> postCode;
     @FXML private TableColumn<Customer, String> phone;
     
-    @FXML private Button addCustomerButton;
-    @FXML private Button editCustomerButton;
     @FXML private Button exitApplication;
-
-
-    /*public void resetCustomerTable() {
-        try {
-            customerTable.setItems(DBQuery.getCustomers());
-        } catch (SQLException | ClassNotFoundException throwables) {
-            throwables.printStackTrace();
-        }
-    }*/
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -82,13 +71,6 @@ public class CustomerMenu implements Initializable {
 
     public void editCustomer(ActionEvent actionEvent) throws IOException {
         if(customerTable.getSelectionModel().getSelectedItem() != null) {
-            /*try{
-                Parent root = FXMLLoader.load(getClass().getResource("/View/editCustomerForm.fxml"));
-                Stage editCustomer = new Stage();
-                editCustomer.setTitle("Update Customer");
-                editCustomer.setScene(new Scene(root, 421, 487));
-                editCustomer.show();
-                EditCustomerForm controller = loader.get controller*/
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/editCustomerForm.fxml"));
                 Parent mainScreen = loader.load();
