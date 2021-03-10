@@ -80,11 +80,11 @@ public class MainScreen implements Initializable {
 
     public void updateAppointment(ActionEvent actionEvent) throws IOException {
         if(appointmentTable.getSelectionModel().getSelectedItem() != null){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/editCustomerForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/EditAppointment.fxml"));
             Parent mainScreen = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Update Product");
-            stage.setScene(new Scene(mainScreen, 421, 487));
+            stage.setScene(new Scene(mainScreen, 428, 539));
             stage.show();
             EditAppointment controller = loader.getController();
             Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();

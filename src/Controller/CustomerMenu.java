@@ -27,7 +27,7 @@ public class CustomerMenu implements Initializable {
     @FXML private TableColumn<Customer, String> firstLevel;
     @FXML private TableColumn<Customer, String> postCode;
     @FXML private TableColumn<Customer, String> phone;
-    
+
     @FXML private Button exitApplication;
 
     @Override
