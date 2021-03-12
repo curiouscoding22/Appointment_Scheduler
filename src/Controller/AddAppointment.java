@@ -86,9 +86,30 @@ public class AddAppointment implements Initializable {
 
         Appointment appointment = new Appointment(newID, custID, newTitle, newDescription, newLocation, newType, startMeeting, endMeeting, meetContact, contactMeet);
 
-        DBQuery.addNewAppointment(appointment);
-        DBQuery.updateAppointmentList();
-
+        try{
+            DBQuery.addNewAppointment(appointment);
+            ID.clear();
+            title.clear();
+            description.clear();
+            location.clear();
+            contact.setValue(null);
+            type.clear();
+            startDate.setValue(null);
+            startHr.setValue(null);
+            startMin.setValue(null);
+            startTOD.setValue(null);
+            endHr.setValue(null);
+            endMin.setValue(null);
+            endTOD.setValue(null);
+            customer.setValue(null);
+            DBQuery.updateAppointmentList();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Appointment Added");
+            alert.setContentText("Appointment successfully added.");
+            alert.showAndWait();
+        } catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     public void cancelAddAppointment(ActionEvent actionEvent) {
