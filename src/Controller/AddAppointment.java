@@ -10,13 +10,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import utils.DBQuery;
-
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.*;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AddAppointment implements Initializable {
@@ -65,8 +62,6 @@ public class AddAppointment implements Initializable {
         }
         LocalTime meetingStartTime = LocalTime.parse(startHour + ":" + startMinute);
         LocalDateTime startMeeting = LocalDateTime.of(newDate, meetingStartTime);
-        //ZonedDateTime startMeeting = ZonedDateTime.of(newDate, meetingStartTime, ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC"));
-
 
         int eHour = endHr.getValue();
         if(endHr.getValue().equals(12) && endTOD.getValue().equals("PM")){
@@ -85,14 +80,11 @@ public class AddAppointment implements Initializable {
         }
         LocalTime meetingEndTime = LocalTime.parse(endHour + ":" + endMinute);
         LocalDateTime endMeeting = LocalDateTime.of(newDate, meetingEndTime);
-        //ZonedDateTime endMeeting = ZonedDateTime.of(newDate, meetingEndTime, ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC"));
 
         Customer selectedCustomer = (Customer) customer.getValue();
         int custID = selectedCustomer.getCustomerID();
 
         Appointment appointment = new Appointment(newID, custID, newTitle, newDescription, newLocation, newType, startMeeting, endMeeting, meetContact, contactMeet);
-
-        System.out.println(newDate);
 
         DBQuery.addNewAppointment(appointment);
 
