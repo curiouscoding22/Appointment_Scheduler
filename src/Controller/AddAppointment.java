@@ -35,7 +35,7 @@ public class AddAppointment implements Initializable {
     @FXML private Button cancelButton;
 
     public void saveNewAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        int newID = DBQuery.getAppointments().size() + 1;
+        int newID = Appointment.appointments.size() + 1;
         String newTitle = title.getText();
         String newDescription = description.getText();
         String newLocation = location.getText();
@@ -87,6 +87,7 @@ public class AddAppointment implements Initializable {
         Appointment appointment = new Appointment(newID, custID, newTitle, newDescription, newLocation, newType, startMeeting, endMeeting, meetContact, contactMeet);
 
         DBQuery.addNewAppointment(appointment);
+        DBQuery.updateAppointmentList();
 
     }
 

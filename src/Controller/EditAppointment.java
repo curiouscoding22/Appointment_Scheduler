@@ -187,7 +187,8 @@ public class EditAppointment implements Initializable {
 
         Appointment updateAppointment = new Appointment(updateID, updateConID, updateTitle, updateDesc, updateLocation, updateType, startMeeting, endMeeting, updateContact, updateConID);
 
-        DBQuery.updateAppointment(appointment);
+        DBQuery.updateAppointment(updateAppointment);
+        DBQuery.updateAppointmentList();
 
     }
 

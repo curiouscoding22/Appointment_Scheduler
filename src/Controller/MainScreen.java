@@ -40,12 +40,14 @@ public class MainScreen implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
-            appointmentTable.setItems(DBQuery.getAppointments());
+            Appointment.appointments = DBQuery.getAppointments();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        appointmentTable.setItems(Appointment.appointments);
 
         appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));

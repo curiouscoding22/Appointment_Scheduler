@@ -1,7 +1,9 @@
 package Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
 public class Appointment {
 
@@ -104,4 +106,6 @@ public class Appointment {
     public void setContactID(int contactID) {
         this.contactID = contactID;
     }
+
+    public static ObservableList appointments = FXCollections.observableArrayList();
 }
