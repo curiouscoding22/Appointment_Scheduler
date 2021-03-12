@@ -14,6 +14,7 @@ import utils.DBQuery;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -137,7 +138,57 @@ public class EditAppointment implements Initializable {
 
     }
 
-    public void saveUpdatedAppointment(ActionEvent actionEvent) {
+    public void saveUpdatedAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        int updateID = Integer.parseInt(IDField.getText());
+        String updateTitle = titleField.getText();
+        String updateDesc = descriptionField.getText();
+        String updateLocation = locationField.getText();
+        Contact con = (Contact) contactCombo.getValue();
+        String updateContact = con.getContactName();
+        int updateConID = con.getContactID();
+        String updateType = typeField.getText();
+        LocalDate updateDate = dateSelector.getValue();
+
+        int sHour = startHRCombo.getValue();
+        if(startHRCombo.getValue().equals(12) && startAMPM.getValue().equals("PM")){
+            startHRCombo.getValue().equals(12);
+        }
+        else if(startAMPM.getValue().equals("PM")){
+            sHour += 12;
+        }
+        String startHour = String.valueOf(sHour);
+        String startMinute = startMinCombo.getValue();
+        if(startHour.length() < 2){
+            startHour = "0" + startHour;
+        }
+        if(startMinute.length() < 2){
+            startMinute = "0" + startMinute;
+        }
+        LocalTime meetingStartTime = LocalTime.parse(startHour + ":" + startMinute);
+        LocalDateTime startMeeting = LocalDateTime.of(updateDate, meetingStartTime);
+
+        int eHour = endHRCombo.getValue();
+        if(endHRCombo.getValue().equals(12) && endAMPM.getValue().equals("PM")){
+            endHRCombo.getValue().equals(12);
+        }
+        else if(endAMPM.getValue().equals("PM")){
+            eHour += 12;
+        }
+        String endHour = String.valueOf(eHour);
+        String endMinute = endMinCombo.getValue();
+        if(endHour.length() < 2){
+            endHour = "0" + endHour;
+        }
+        if(endMinute.length() < 2){
+            endMinute = "0" + endMinute;
+        }
+        LocalTime meetingEndTime = LocalTime.parse(endHour + ":" + endMinute);
+        LocalDateTime endMeeting = LocalDateTime.of(updateDate, meetingEndTime);
+
+        Appointment updateAppointment = new Appointment(updateID, updateConID, updateTitle, updateDesc, updateLocation, updateType, startMeeting, endMeeting, updateContact, updateConID);
+
+        DBQuery.updateAppointment(appointment);
+
     }
 
     public void cancelUpdate(ActionEvent actionEvent) {

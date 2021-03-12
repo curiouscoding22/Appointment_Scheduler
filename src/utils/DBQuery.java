@@ -163,4 +163,20 @@ public class DBQuery {
         statement.execute();
     }
 
+    public static void updateAppointment(Appointment appointment) throws SQLException, ClassNotFoundException{
+        Timestamp startTime = Timestamp.valueOf(appointment.getStart());
+        Timestamp endTime = Timestamp.valueOf(appointment.getEnd());
+        Connection connection = DBConnection.beginConnection();
+        String query = "UPDATE appointments SET title = ?, description = ?, location = ?, type = ?, start = ?, end = ?, last_update = now(), last_updated_by = 'User', customer_ID = ?, contact_ID = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, appointment.getTitle());
+        statement.setString(2, appointment.getDescription());
+        statement.setString(3, appointment.getLocation());
+        statement.setString(4, appointment.getType());
+        statement.setTimestamp(5, startTime);
+        statement.setTimestamp(6, endTime);
+        statement.setInt(7, appointment.getCustomerID());
+        statement.setInt(8, appointment.getContactID());
+        statement.execute();
+    }
 }
