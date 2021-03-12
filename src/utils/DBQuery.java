@@ -3,13 +3,10 @@ package utils;
 import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
-import java.time.ZoneId;
+
 
 public class DBQuery {
-
-    //public static ObservableList<Country> countries = FXCollections.observableArrayList();
 
     public static ObservableList<Appointment>getAppointments() throws SQLException, ClassNotFoundException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -202,5 +199,13 @@ public class DBQuery {
         }
         //return appointments;
 
+    }
+
+    public static void deleteAppointment(Appointment selectedItem) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.beginConnection();
+        String sqlQuery = "DELETE FROM appointments WHERE appointment_ID = ?";
+        PreparedStatement statement = connection.prepareStatement(sqlQuery);
+        statement.setInt(1, selectedItem.getAppointmentID());
+        statement.execute();
     }
 }

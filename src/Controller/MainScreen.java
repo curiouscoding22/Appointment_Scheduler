@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Appointment;
-import Model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +33,6 @@ public class MainScreen implements Initializable {
     @FXML private TableColumn<Appointment, Integer> customerIDColumn;
 
     @FXML private Button exitButton;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -100,7 +98,29 @@ public class MainScreen implements Initializable {
 
     }
 
-    public void deleteAppointment(ActionEvent actionEvent) {
+    public void deleteAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        if(appointmentTable.getSelectionModel().getSelectedItem() != null){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Action");
+            alert.setContentText("Do you want to delete this appointemnt?");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    try {
+                        DBQuery.deleteAppointment(appointmentTable.getSelectionModel().getSelectedItem());
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            DBQuery.updateAppointmentList();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No Appointment Selected");
+            alert.setContentText("Select an appointment from the list");
+            alert.showAndWait();
+        }
     }
 
     public void exitFromMain(ActionEvent actionEvent) {
