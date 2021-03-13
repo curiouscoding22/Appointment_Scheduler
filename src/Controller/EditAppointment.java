@@ -11,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import utils.DBQuery;
-
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -187,8 +186,26 @@ public class EditAppointment implements Initializable {
 
         Appointment updateAppointment = new Appointment(updateID, updateConID, updateTitle, updateDesc, updateLocation, updateType, startMeeting, endMeeting, updateContact, updateConID);
 
-        DBQuery.updateAppointment(updateAppointment);
-        DBQuery.updateAppointmentList();
+        try {
+            DBQuery.updateAppointment(updateAppointment);
+            IDField.clear();
+            titleField.clear();
+            descriptionField.clear();
+            locationField.clear();
+            contactCombo.setValue(null);
+            typeField.clear();
+            dateSelector.setValue(null);
+            startHRCombo.setValue(null);
+            startMinCombo.setValue(null);
+            startAMPM.setValue(null);
+            endHRCombo.setValue(null);
+            endMinCombo.setValue(null);
+            endAMPM.setValue(null);
+            customerCombo.setValue(null);
+            DBQuery.updateAppointmentList();
+        } catch (Exception e){
+            System.out.println(e);
+        }
 
     }
 

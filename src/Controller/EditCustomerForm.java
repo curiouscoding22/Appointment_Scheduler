@@ -111,13 +111,7 @@ public class EditCustomerForm implements Initializable {
         DBQuery.updateCustomer(updatedCustomer);
         DBQuery.updateCustomerList();
 
-        /*System.out.println(updatedCustomer.getCustomerID());
-        System.out.println(updatedCustomer.getCustomerName());
-        System.out.println(updatedCustomer.getAddress());
-        System.out.println(updatedCustomer.getPostCode());
-        System.out.println(updatedCustomer.getPhone());
-        System.out.println(updatedCustomer.getFirstLevelID());
-        System.out.println(updatedCustomer.getFirstLevel());*/
+
     }
 
 

@@ -109,6 +109,11 @@ public class AddAppointment implements Initializable {
             alert.showAndWait();
         } catch (Exception e){
             System.out.println(e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Add Unsuccessful");
+            alert.setContentText("Review the information entered.");
+            alert.showAndWait();
+
         }
     }
 
