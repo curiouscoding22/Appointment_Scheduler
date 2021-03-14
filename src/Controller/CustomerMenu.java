@@ -109,7 +109,7 @@ public class CustomerMenu implements Initializable {
         if(customerTable.getSelectionModel().getSelectedItem() != null){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Action");
-            alert.setContentText("Do you want to delete customer?");
+            alert.setContentText("Do you want to delete this customer?");
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     try {
