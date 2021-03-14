@@ -27,7 +27,6 @@ public class CustomerMenu implements Initializable {
     @FXML private TableColumn<Customer, String> firstLevel;
     @FXML private TableColumn<Customer, String> postCode;
     @FXML private TableColumn<Customer, String> phone;
-    @FXML private Button deleteButton;
     @FXML private Button exitApplication;
 
     @Override
@@ -35,10 +34,8 @@ public class CustomerMenu implements Initializable {
 
         try {
             Customer.customers = DBQuery.getCustomers();
-        } catch (SQLException throwables) {
+        } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
 
         customerTable.setItems(Customer.customers);
