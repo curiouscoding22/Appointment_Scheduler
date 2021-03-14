@@ -104,4 +104,7 @@ public class CustomerMenu implements Initializable {
             }
         });
     }
+
+    public void deleteSelectCustomer(ActionEvent actionEvent) {
+    }
 }

@@ -16,8 +16,9 @@
         </columns>
       </TableView>
       <Button fx:id="appointmentButton" layoutX="621.0" layoutY="33.0" mnemonicParsing="false" onAction="#returnToAppointments" text="Appointments" />
-      <Button fx:id="addCustomerButton" layoutX="561.0" layoutY="427.0" mnemonicParsing="false" onAction="#addNewCustomer" text="Add" />
-      <Button fx:id="editCustomerButton" layoutX="615.0" layoutY="427.0" mnemonicParsing="false" onAction="#editCustomer" text="Edit" />
+      <Button fx:id="addCustomerButton" layoutX="540.0" layoutY="427.0" mnemonicParsing="false" onAction="#addNewCustomer" text="Add" />
+      <Button fx:id="editCustomerButton" layoutX="579.0" layoutY="427.0" mnemonicParsing="false" onAction="#editCustomer" text="Edit" />
       <Button fx:id="exitApplication" layoutX="667.0" layoutY="427.0" mnemonicParsing="false" onAction="#exitApplication" text="Exit" />
+      <Button fx:id="deleteButton" layoutX="616.0" layoutY="427.0" mnemonicParsing="false" onAction="#deleteSelectCustomer" text="Delete" />
    </children>
 </AnchorPane>
