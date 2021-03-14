@@ -102,11 +102,15 @@ public class MainScreen implements Initializable {
         if(appointmentTable.getSelectionModel().getSelectedItem() != null){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Action");
-            alert.setContentText("Do you want to delete this appointemnt?");
+            alert.setContentText("Do you want to cancel this appointment?");
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     try {
                         DBQuery.deleteAppointment(appointmentTable.getSelectionModel().getSelectedItem());
+                        Alert conAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                        conAlert.setContentText(
+                                appointmentTable.getSelectionModel().getSelectedItem().getType() + " appointment " + appointmentTable.getSelectionModel().getSelectedItem().getAppointmentID() + " was cancelled.");
+                        conAlert.showAndWait();
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     } catch (ClassNotFoundException e) {
