@@ -27,7 +27,7 @@ public class CustomerMenu implements Initializable {
     @FXML private TableColumn<Customer, String> firstLevel;
     @FXML private TableColumn<Customer, String> postCode;
     @FXML private TableColumn<Customer, String> phone;
-
+    @FXML private Button deleteButton;
     @FXML private Button exitApplication;
 
     @Override
@@ -105,6 +105,28 @@ public class CustomerMenu implements Initializable {
         });
     }
 
-    public void deleteSelectCustomer(ActionEvent actionEvent) {
+    public void deleteSelectCustomer(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        if(customerTable.getSelectionModel().getSelectedItem() != null){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Action");
+            alert.setContentText("Do you want to delete customer?");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    try {
+                        DBQuery.deleteCustomer(customerTable.getSelectionModel().getSelectedItem());
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            DBQuery.updateCustomerList();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No customer Selected");
+            alert.setContentText("Select a customer from the list");
+            alert.showAndWait();
+        }
     }
 }

@@ -208,4 +208,16 @@ public class DBQuery {
         statement.setInt(1, selectedItem.getAppointmentID());
         statement.execute();
     }
+
+    public static void deleteCustomer(Customer selectedItem) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.beginConnection();
+        String sqlAppQuery = "DELETE FROM appointments WHERE customer_ID = ?";
+        String sqlCusQuery = "DELETE FROM customers WHERE customer_ID = ?";
+        PreparedStatement appStatement = connection.prepareStatement(sqlAppQuery);
+        appStatement.setInt(1, selectedItem.getCustomerID());
+        appStatement.execute();
+        PreparedStatement cusStatement = connection.prepareStatement(sqlCusQuery);
+        cusStatement.setInt(1, selectedItem.getCustomerID());
+        cusStatement.execute();
+    }
 }
