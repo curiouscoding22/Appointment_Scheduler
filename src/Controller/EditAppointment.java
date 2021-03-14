@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import utils.DBQuery;
+import utils.Validate;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -186,25 +188,44 @@ public class EditAppointment implements Initializable {
 
         Appointment updateAppointment = new Appointment(updateID, updateConID, updateTitle, updateDesc, updateLocation, updateType, startMeeting, endMeeting, updateContact, updateConID);
 
-        try {
-            DBQuery.updateAppointment(updateAppointment);
-            IDField.clear();
-            titleField.clear();
-            descriptionField.clear();
-            locationField.clear();
-            contactCombo.setValue(null);
-            typeField.clear();
-            dateSelector.setValue(null);
-            startHRCombo.setValue(null);
-            startMinCombo.setValue(null);
-            startAMPM.setValue(null);
-            endHRCombo.setValue(null);
-            endMinCombo.setValue(null);
-            endAMPM.setValue(null);
-            customerCombo.setValue(null);
-            DBQuery.updateAppointmentList();
-        } catch (Exception e){
-            System.out.println(e);
+        if(!Validate.businessHoursCheck(appointment)){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Business Hours");
+            alert.setContentText("Please select times within business hours.");
+            alert.showAndWait();
+            return;
+        }
+
+        if(Validate.appointmentOverlapCheck(appointment)) {
+            try {
+                DBQuery.updateAppointment(updateAppointment);
+                IDField.clear();
+                titleField.clear();
+                descriptionField.clear();
+                locationField.clear();
+                contactCombo.setValue(null);
+                typeField.clear();
+                dateSelector.setValue(null);
+                startHRCombo.setValue(null);
+                startMinCombo.setValue(null);
+                startAMPM.setValue(null);
+                endHRCombo.setValue(null);
+                endMinCombo.setValue(null);
+                endAMPM.setValue(null);
+                customerCombo.setValue(null);
+                DBQuery.updateAppointmentList();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Appointment Updated");
+                alert.setContentText("Appointment successfully updated.");
+                alert.showAndWait();
+            } catch (Exception e) {
+                System.out.println(e);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Update Unsuccessful");
+                alert.setContentText("Review the information entered.");
+                alert.showAndWait();
+            }
+            return;
         }
 
     }

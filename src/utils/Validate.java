@@ -1,6 +1,8 @@
 package utils;
 
 import Model.Appointment;
+import javafx.scene.control.Alert;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -25,21 +27,25 @@ public class Validate {
     }
 
     public static boolean appointmentOverlapCheck(Appointment appointment){
-        boolean notOverlapping = false;
+
         LocalDateTime startUTC = appointment.getStart();
         LocalDateTime endUTC = appointment.getEnd();
 
-        for(int i = 0; i < Appointment.appointments.size(); ++i){
+        for(int i = 0; i < Appointment.appointments.size(); ++i) {
             Appointment app = (Appointment) Appointment.appointments.get(i);
-            if(appointment.getCustomerID() == app.getCustomerID()){
-                if(app.getStart().isBefore(startUTC) && app.getEnd().isBefore(startUTC) && app.getStart().isAfter(endUTC)){
-                    notOverlapping = true;
+            if (appointment.getCustomerID() == app.getCustomerID()) {
+                if (app.getStart().isBefore(startUTC) && app.getEnd().isBefore(startUTC) && app.getStart().isAfter(endUTC)) {
                     System.out.println("This does not overlap.");
+                    return true;
                 }
             }
-
         }
-        return notOverlapping;
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("OVerlapping Appointment");
+        alert.setContentText("This customer already has an appointment at that time");
+        alert.showAndWait();
+        return false;
+
     }
 
 
