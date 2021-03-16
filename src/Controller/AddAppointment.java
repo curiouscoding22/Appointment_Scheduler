@@ -96,7 +96,42 @@ public class AddAppointment implements Initializable {
             return;
         }
 
-        if(Validate.appointmentOverlapCheck(appointment)){
+        try{
+            DBQuery.addNewAppointment(appointment);
+            ID.clear();
+            title.clear();
+            description.clear();
+            location.clear();
+            contact.setValue(null);
+            type.clear();
+            startDate.setValue(null);
+            startHr.setValue(null);
+            startHr.setPromptText("Hour");
+            startMin.setValue(null);
+            startMin.setPromptText("Min");
+            startTOD.setValue(null);
+            startTOD.setPromptText("AM/PM");
+            endHr.setValue(null);
+            endHr.setPromptText("Hour");
+            endMin.setValue(null);
+            endMin.setPromptText("Min");
+            endTOD.setValue(null);
+            endTOD.setPromptText("AM/PM");
+            customer.setValue(null);
+            DBQuery.updateAppointmentList();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Appointment Added");
+            alert.setContentText("Appointment successfully added.");
+            alert.showAndWait();
+        } catch (Exception e){
+            System.out.println(e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Add Unsuccessful");
+            alert.setContentText("Review the information entered.");
+            alert.showAndWait();
+        }
+
+        /*if(Validate.appointmentOverlapCheck(appointment)){
             try{
                 DBQuery.addNewAppointment(appointment);
                 ID.clear();
@@ -132,7 +167,7 @@ public class AddAppointment implements Initializable {
                 alert.showAndWait();
             }
             return;
-        }
+        }*/
     }
 
     public void cancelAddAppointment(ActionEvent actionEvent) {

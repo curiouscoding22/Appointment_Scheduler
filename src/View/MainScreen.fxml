@@ -19,9 +19,12 @@
         </columns>
       </TableView>
       <Button fx:id="customerButton" layoutX="719.0" layoutY="37.0" mnemonicParsing="false" onAction="#changeToCustomer" text="Customers" />
-      <Button fx:id="exitButton" layoutX="772.0" layoutY="453.0" mnemonicParsing="false" onAction="#exitFromMain" text="Exit" />
-      <Button layoutX="712.0" layoutY="453.0" mnemonicParsing="false" onAction="#deleteAppointment" text="Delete" />
-      <Button layoutX="651.0" layoutY="453.0" mnemonicParsing="false" onAction="#updateAppointment" text="Update" />
-      <Button layoutX="602.0" layoutY="453.0" mnemonicParsing="false" onAction="#addAppointment" text="Add" />
+      <Button fx:id="exitButton" layoutX="769.0" layoutY="453.0" mnemonicParsing="false" onAction="#exitFromMain" text="Exit" />
+      <Button layoutX="719.0" layoutY="453.0" mnemonicParsing="false" onAction="#deleteAppointment" text="Delete" />
+      <Button layoutX="664.0" layoutY="453.0" mnemonicParsing="false" onAction="#updateAppointment" text="Update" />
+      <Button layoutX="626.0" layoutY="453.0" mnemonicParsing="false" onAction="#addAppointment" text="Add" />
+      <RadioButton fx:id="monthlyApp" layoutX="601.0" layoutY="41.0" mnemonicParsing="false" onAction="#showMonthly" text="Monthly" />
+      <RadioButton fx:id="weeklyApp" layoutX="524.0" layoutY="41.0" mnemonicParsing="false" onAction="#showWeekly" text="Weekly" />
+      <RadioButton fx:id="allAppointments" layoutX="402.0" layoutY="41.0" mnemonicParsing="false" onAction="#showAll" selected="true" text="All Appointments" />
    </children>
 </Pane>

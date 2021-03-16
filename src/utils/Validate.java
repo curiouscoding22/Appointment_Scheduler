@@ -41,11 +41,10 @@ public class Validate {
             }
         }
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("OVerlapping Appointment");
+        alert.setTitle("Overlapping Appointment");
         alert.setContentText("This customer already has an appointment at that time");
         alert.showAndWait();
         return false;
-
     }
 
 

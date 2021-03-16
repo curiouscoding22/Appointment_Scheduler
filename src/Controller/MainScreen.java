@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.Appointment;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import utils.DBQuery;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
@@ -31,8 +34,12 @@ public class MainScreen implements Initializable {
     @FXML private TableColumn<Appointment, LocalTime> startColumn;
     @FXML private TableColumn<Appointment, LocalTime> endColumn;
     @FXML private TableColumn<Appointment, Integer> customerIDColumn;
+    @FXML private RadioButton allAppointments;
+    @FXML private RadioButton weeklyApp;
+    @FXML private RadioButton monthlyApp;
 
     @FXML private Button exitButton;
+    private ToggleGroup appFilter;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,6 +51,8 @@ public class MainScreen implements Initializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        //filterTimes();
 
         appointmentTable.setItems(Appointment.appointments);
 
@@ -57,7 +66,10 @@ public class MainScreen implements Initializable {
         endColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
         customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
-
+        appFilter = new ToggleGroup();
+        this.allAppointments.setToggleGroup(appFilter);
+        this.weeklyApp.setToggleGroup(appFilter);
+        this.monthlyApp.setToggleGroup(appFilter);
 
 
     }
@@ -137,5 +149,64 @@ public class MainScreen implements Initializable {
                 stage.close();
             }
         });
+    }
+
+    public void filterTimes(){
+        LocalDate current = LocalDate.now();
+        LocalDate endOfWeek = current.plusDays(7);
+        LocalDate endOfMonth = current.plusMonths(1);
+
+        if(appFilter.getSelectedToggle().equals(allAppointments)){
+            appointmentTable.setItems(Appointment.appointments);
+        }
+
+
+
+        if(appFilter.getSelectedToggle().equals(monthlyApp)){
+            ObservableList monthlyAppointments = FXCollections.observableArrayList();
+            for(int i = 0; i < Appointment.appointments.size(); ++i) {
+                Appointment app = (Appointment) Appointment.appointments.get(i);
+                if (app.getStart().toLocalDate().getDayOfYear() >= current.getDayOfYear() && app.getStart().toLocalDate().getDayOfYear() <= endOfMonth.getDayOfYear()) {
+                    monthlyAppointments.add(app);
+                }
+            }
+            appointmentTable.setItems(monthlyAppointments);
+        }
+    }
+
+    public void showWeekly(ActionEvent actionEvent) {
+        LocalDate current = LocalDate.now();
+        LocalDate endOfWeek = current.plusDays(7);
+        if(appFilter.getSelectedToggle().equals(weeklyApp)){
+            ObservableList weeklyAppointments = FXCollections.observableArrayList();
+            for(int i = 0; i < Appointment.appointments.size(); ++i){
+                Appointment app = (Appointment) Appointment.appointments.get(i);
+                if(app.getStart().toLocalDate().getDayOfYear() >= current.getDayOfYear() && app.getStart().toLocalDate().getDayOfYear() <= endOfWeek.getDayOfYear()){
+                    weeklyAppointments.add(app);
+                }
+            }
+            appointmentTable.setItems(weeklyAppointments);
+        }
+    }
+
+    public void showMonthly(ActionEvent actionEvent) {
+        LocalDate current = LocalDate.now();
+        LocalDate endOfMonth = current.plusMonths(1);
+        if(appFilter.getSelectedToggle().equals(monthlyApp)){
+            ObservableList monthlyAppointments = FXCollections.observableArrayList();
+            for(int i = 0; i < Appointment.appointments.size(); ++i) {
+                Appointment app = (Appointment) Appointment.appointments.get(i);
+                if (app.getStart().toLocalDate().getDayOfYear() >= current.getDayOfYear() && app.getStart().toLocalDate().getDayOfYear() <= endOfMonth.getDayOfYear()) {
+                    monthlyAppointments.add(app);
+                }
+            }
+            appointmentTable.setItems(monthlyAppointments);
+        }
+    }
+
+    public void showAll(ActionEvent actionEvent) {
+        if(appFilter.getSelectedToggle().equals(allAppointments)){
+            appointmentTable.setItems(Appointment.appointments);
+        }
     }
 }
