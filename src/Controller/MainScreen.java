@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import utils.DBQuery;
+import utils.Validate;
 
 import java.io.IOException;
 import java.net.URL;
@@ -52,7 +53,7 @@ public class MainScreen implements Initializable {
             e.printStackTrace();
         }
 
-        //filterTimes();
+        if(Validate.fifteenMinuteWarning());
 
         appointmentTable.setItems(Appointment.appointments);
 
@@ -149,29 +150,6 @@ public class MainScreen implements Initializable {
                 stage.close();
             }
         });
-    }
-
-    public void filterTimes(){
-        LocalDate current = LocalDate.now();
-        LocalDate endOfWeek = current.plusDays(7);
-        LocalDate endOfMonth = current.plusMonths(1);
-
-        if(appFilter.getSelectedToggle().equals(allAppointments)){
-            appointmentTable.setItems(Appointment.appointments);
-        }
-
-
-
-        if(appFilter.getSelectedToggle().equals(monthlyApp)){
-            ObservableList monthlyAppointments = FXCollections.observableArrayList();
-            for(int i = 0; i < Appointment.appointments.size(); ++i) {
-                Appointment app = (Appointment) Appointment.appointments.get(i);
-                if (app.getStart().toLocalDate().getDayOfYear() >= current.getDayOfYear() && app.getStart().toLocalDate().getDayOfYear() <= endOfMonth.getDayOfYear()) {
-                    monthlyAppointments.add(app);
-                }
-            }
-            appointmentTable.setItems(monthlyAppointments);
-        }
     }
 
     public void showWeekly(ActionEvent actionEvent) {

@@ -26,5 +26,6 @@
       <RadioButton fx:id="monthlyApp" layoutX="601.0" layoutY="41.0" mnemonicParsing="false" onAction="#showMonthly" text="Monthly" />
       <RadioButton fx:id="weeklyApp" layoutX="524.0" layoutY="41.0" mnemonicParsing="false" onAction="#showWeekly" text="Weekly" />
       <RadioButton fx:id="allAppointments" layoutX="402.0" layoutY="41.0" mnemonicParsing="false" onAction="#showAll" selected="true" text="All Appointments" />
+      <Button layoutX="53.0" layoutY="453.0" mnemonicParsing="false" text="Reports" />
    </children>
 </Pane>

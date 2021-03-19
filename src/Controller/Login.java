@@ -28,7 +28,6 @@ public class Login implements Initializable {
     @FXML private Button loginButton;
     @FXML private Label timeZoneLocation;
 
-
     @FXML private void applicationLogin(ActionEvent actionEvent) throws IOException {
         if(usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -55,8 +54,6 @@ public class Login implements Initializable {
 
 
     }
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

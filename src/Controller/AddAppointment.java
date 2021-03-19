@@ -131,7 +131,7 @@ public class AddAppointment implements Initializable {
             alert.showAndWait();
         }
 
-        /*if(Validate.appointmentOverlapCheck(appointment)){
+        /*if(!Validate.appointmentOverlapCheck(appointment)){
             try{
                 DBQuery.addNewAppointment(appointment);
                 ID.clear();

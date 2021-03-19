@@ -196,7 +196,7 @@ public class EditAppointment implements Initializable {
             return;
         }
 
-        if(Validate.appointmentOverlapCheck(appointment)) {
+        if(!Validate.appointmentOverlapCheck(appointment)) {
             try {
                 DBQuery.updateAppointment(updateAppointment);
                 IDField.clear();
@@ -227,7 +227,6 @@ public class EditAppointment implements Initializable {
             }
             return;
         }
-
     }
 
     public void cancelUpdate(ActionEvent actionEvent) {

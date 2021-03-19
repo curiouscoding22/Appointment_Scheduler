@@ -3,10 +3,7 @@ package utils;
 import Model.Appointment;
 import javafx.scene.control.Alert;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.chrono.ChronoLocalDateTime;
 
 public class Validate {
@@ -27,16 +24,16 @@ public class Validate {
     }
 
     public static boolean appointmentOverlapCheck(Appointment appointment){
-
+        boolean isOverlapping = true;
         LocalDateTime startUTC = appointment.getStart();
         LocalDateTime endUTC = appointment.getEnd();
 
         for(int i = 0; i < Appointment.appointments.size(); ++i) {
             Appointment app = (Appointment) Appointment.appointments.get(i);
             if (appointment.getCustomerID() == app.getCustomerID()) {
-                if (app.getStart().isBefore(startUTC) && app.getEnd().isBefore(startUTC) && app.getStart().isAfter(endUTC)) {
+                if(appointment.getStart().isBefore(app.getStart()) && appointment.getEnd().isBefore(app.getStart()) && appointment.getStart().isAfter(app.getEnd()))  {
                     System.out.println("This does not overlap.");
-                    return true;
+                    isOverlapping = false;
                 }
             }
         }
@@ -44,8 +41,23 @@ public class Validate {
         alert.setTitle("Overlapping Appointment");
         alert.setContentText("This customer already has an appointment at that time");
         alert.showAndWait();
-        return false;
+        return isOverlapping;
     }
 
+    public static boolean fifteenMinuteWarning(){
+        LocalDateTime userLogin = LocalDateTime.now();
+        LocalDateTime checkWindow = userLogin.plusMinutes(15);
+        for (int i = 0; i < Appointment.appointments.size(); ++i) {
+            Appointment app = (Appointment) Appointment.appointments.get(i);
+            if (app.getStart().isAfter(userLogin) && app.getStart().isBefore(checkWindow)) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Appointment Soon");
+                alert.setContentText(app.getDescription() + " appointment is starting soon.");
+                alert.showAndWait();
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
