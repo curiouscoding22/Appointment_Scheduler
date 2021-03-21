@@ -14,15 +14,13 @@ public class ReportQuery {
         LocalDateTime oneMonth = current.plusMonths(1);
         String reportResult = null;
         Connection connection = DBConnection.beginConnection();
-        String sqlQuery = "SELECT type COUNT(*) as count FROM appointments WHERE start >=" + current + "AND start <" + oneMonth + "GROUP BY type";
+        String sqlQuery = "SELECT type, COUNT(*) as 'c' FROM appointments WHERE start >='" + current + "'AND start <'" + oneMonth + "'GROUP BY type";
         PreparedStatement statement = connection.prepareStatement(sqlQuery);
         ResultSet result = statement.executeQuery();
         while(result.next()){
-            reportResult = String.valueOf(result.getInt("count")) + "number of " + result.getString("type") + " appointments.\n";
+            reportResult = String.valueOf(result.getInt("c")) + " " + result.getString("type") + " appointment(s) this month.\n";
         }
-
         return reportResult;
-
     }
 
 }
