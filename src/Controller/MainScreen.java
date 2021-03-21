@@ -187,4 +187,12 @@ public class MainScreen implements Initializable {
             appointmentTable.setItems(Appointment.appointments);
         }
     }
+
+    public void goToReports(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/View/Reports.fxml"));
+        Stage reportMenu = new Stage();
+        reportMenu.setTitle("Add Appointment");
+        reportMenu.setScene(new Scene(root, 600, 569));
+        reportMenu.show();
+    }
 }
