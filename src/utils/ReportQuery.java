@@ -1,9 +1,13 @@
 package utils;
 
+import Model.Appointment;
+import Model.Contact;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ReportQuery {
@@ -21,6 +25,19 @@ public class ReportQuery {
             reportResult = String.valueOf(result.getInt("c")) + " " + result.getString("type") + " appointment(s) this month.\n";
         }
         return reportResult;
+    }
+
+    public static String reportTwo(Contact selectedContact) {
+        LocalDate today = LocalDate.now();
+        String schedule = null;
+        for(int i = 0; i < Appointment.appointments.size(); ++i){
+            Appointment app = (Appointment) Appointment.appointments.get(i);
+            if(selectedContact.getContactID() == app.getContactID() && today == app.getStart().toLocalDate()){
+                schedule = app.getAppointmentID() + " " + app.getTitle() + " " + app.getType() + " " + app.getDescription() + " " + app.getStart() + " " + app.getEnd() + " " + app.getCustomerID();
+                System.out.println(schedule);
+            }
+        }
+        return schedule;
     }
 
 }
