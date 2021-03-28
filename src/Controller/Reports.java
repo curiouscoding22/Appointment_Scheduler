@@ -1,6 +1,8 @@
 package Controller;
 
+import Model.Appointment;
 import Model.Contact;
+import Model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +14,8 @@ import utils.ReportQuery;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Reports implements Initializable {
@@ -25,9 +29,14 @@ public class Reports implements Initializable {
         reportTextArea.setText(ReportQuery.reportOne());
     }
 
-    public void runReportTwo(ActionEvent actionEvent) {
+    public void runReportTwo(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         reportTextArea.clear();
-        reportTextArea.appendText(ReportQuery.reportTwo((Contact) contactSelect.getValue()));
+        Contact contactRep = (Contact) contactSelect.getValue();
+        ArrayList<String> schedule = ReportQuery.reportTwo(contactRep);
+        for(String i : schedule){
+            reportTextArea.appendText(i);
+            reportTextArea.appendText("\n");
+        }
 
     }
 
@@ -47,6 +56,14 @@ public class Reports implements Initializable {
         }
 
         contactSelect.setItems(Contact.contacts);
+
+        try {
+            Customer.customers = DBQuery.getCustomers();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 }

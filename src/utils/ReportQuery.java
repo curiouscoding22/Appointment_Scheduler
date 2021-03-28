@@ -1,14 +1,13 @@
 package utils;
 
-import Model.Appointment;
 import Model.Contact;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ReportQuery {
 
@@ -27,17 +26,41 @@ public class ReportQuery {
         return reportResult;
     }
 
-    public static String reportTwo(Contact selectedContact) {
-        LocalDate today = LocalDate.now();
-        String schedule = null;
-        for(int i = 0; i < Appointment.appointments.size(); ++i){
-            Appointment app = (Appointment) Appointment.appointments.get(i);
-            if(selectedContact.getContactID() == app.getContactID() && today == app.getStart().toLocalDate()){
-                schedule = app.getAppointmentID() + " " + app.getTitle() + " " + app.getType() + " " + app.getDescription() + " " + app.getStart() + " " + app.getEnd() + " " + app.getCustomerID();
-                System.out.println(schedule);
-            }
+    public static ArrayList<String> reportTwo(Contact selectedContact) throws SQLException, ClassNotFoundException {
+        String appID;
+        String title;
+        String type;
+        String desc;
+        LocalDateTime start;
+        LocalDateTime end;
+        String cusID;
+        ArrayList<String> contactApps = new ArrayList<String>();
+        String app = null;
+        Connection connection = DBConnection.beginConnection();
+        String sqlQuery = "SELECT appointment_ID, title, type, description, start, end, customer_ID FROM appointments WHERE contact_ID = ?";
+        PreparedStatement statement = connection.prepareStatement(sqlQuery);
+        statement.setInt(1, selectedContact.getContactID());
+        ResultSet result = statement.executeQuery();
+        while(result.next()){
+            appID = result.getString(String.valueOf("appointment_ID"));
+            title = result.getString("title");
+            type = result.getString("type");
+            desc = result.getString("description");
+            start = result.getTimestamp("start").toLocalDateTime();
+            end = result.getTimestamp("end").toLocalDateTime();
+            cusID = result.getString(String.valueOf("customer_ID"));
+
+            app = "Appointment ID: " + appID + "\n" +
+                    "Title: " + title + "\n" +
+                    "Type: " + type + "\n" +
+                    "Description: " + desc + "\n" +
+                    "Start: " + start + "\n" +
+                    "End: " + end + "\n" +
+                    "Customer ID: " + cusID + "\n";
+            contactApps.add(app);
         }
-        return schedule;
+
+        return contactApps;
     }
 
 }
