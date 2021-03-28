@@ -59,7 +59,6 @@ public class ReportQuery {
                     "Customer ID: " + cusID + "\n";
             contactApps.add(app);
         }
-
         return contactApps;
     }
 

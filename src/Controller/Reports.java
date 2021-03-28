@@ -33,11 +33,8 @@ public class Reports implements Initializable {
         reportTextArea.clear();
         Contact contactRep = (Contact) contactSelect.getValue();
         ArrayList<String> schedule = ReportQuery.reportTwo(contactRep);
-        for(String i : schedule){
-            reportTextArea.appendText(i);
-            reportTextArea.appendText("\n");
-        }
 
+        schedule.forEach( (i) -> {reportTextArea.appendText(i); reportTextArea.appendText("\n");});
     }
 
     public void runReportThree(ActionEvent actionEvent) {
