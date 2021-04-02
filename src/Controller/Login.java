@@ -10,9 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -29,6 +32,12 @@ public class Login implements Initializable {
     @FXML private Label timeZoneLocation;
 
     @FXML private void applicationLogin(ActionEvent actionEvent) throws IOException {
+
+        String filename = "src/Activity_Log.txt";
+        FileWriter writer = new FileWriter(filename, true);
+        PrintWriter outputFile = new PrintWriter(writer);
+
+
         if(usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -40,12 +49,21 @@ public class Login implements Initializable {
         password = passwordField.getText();
 
         if(userName.equals("test") && password.equals("test")){
+
+            outputFile.println("Successful: " + userName + " : " + LocalDateTime.now());
+            outputFile.close();
+
+
             Parent parent = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
             Scene scene = new Scene(parent);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         } else{
+
+            outputFile.println("Failed: " + userName + " : " + LocalDateTime.now());
+            outputFile.close();
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
             alert.setContentText("Username or password is incorrect");
