@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ReportQuery {
 
@@ -60,6 +61,26 @@ public class ReportQuery {
             contactApps.add(app);
         }
         return contactApps;
+    }
+
+    public static HashMap<String, Integer> reportThree() throws SQLException, ClassNotFoundException {
+        String country;
+        int cusCount = 1;
+        HashMap<String, Integer> map = new HashMap<>();
+        Connection connection = DBConnection.beginConnection();
+        String sqlQuery = "SELECT customer_name, countries.country FROM customers, first_level_divisions, countries\n" +
+                "WHERE customers.Division_ID = first_level_divisions.Division_ID AND first_level_divisions.Country_ID = countries.Country_ID;";
+        PreparedStatement statement = connection.prepareStatement(sqlQuery);
+        ResultSet result = statement.executeQuery();
+        while(result.next()){
+            country = result.getString("country");
+            if(map.containsKey(country)){
+                map.put(country, cusCount + 1);
+            } else {
+                map.put(country, cusCount);
+            }
+        }
+        return map;
     }
 
 }

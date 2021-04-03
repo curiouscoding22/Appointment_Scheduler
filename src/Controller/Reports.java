@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class Reports implements Initializable {
@@ -26,7 +27,8 @@ public class Reports implements Initializable {
 
     public void runReportOne(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         reportTextArea.clear();
-        reportTextArea.setText(ReportQuery.reportOne());
+        reportTextArea.appendText("Number of appointments this month:\n");
+        reportTextArea.appendText(ReportQuery.reportOne());
     }
 
     public void runReportTwo(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
@@ -37,8 +39,14 @@ public class Reports implements Initializable {
         schedule.forEach( (i) -> {reportTextArea.appendText(i); reportTextArea.appendText("\n");});
     }
 
-    public void runReportThree(ActionEvent actionEvent) {
+    public void runReportThree(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         reportTextArea.clear();
+        reportTextArea.appendText("Number of Customers per country: \n");
+        HashMap<String, Integer> reportResult = ReportQuery.reportThree();
+        reportResult.forEach((key, value) -> reportTextArea.appendText(key + " : " + value + "\n"));
+
+
+
     }
 
     @Override
