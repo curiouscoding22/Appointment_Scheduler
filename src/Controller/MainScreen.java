@@ -192,7 +192,7 @@ public class MainScreen implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/View/Reports.fxml"));
         Stage reportMenu = new Stage();
         reportMenu.setTitle("Add Appointment");
-        reportMenu.setScene(new Scene(root, 600, 569));
+        reportMenu.setScene(new Scene(root, 568, 482));
         reportMenu.show();
     }
 }

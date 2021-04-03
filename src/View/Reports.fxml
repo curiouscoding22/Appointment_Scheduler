@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Reports">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="568.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Reports">
    <children>
-      <TextArea fx:id="reportTextArea" layoutX="229.0" layoutY="93.0" prefHeight="426.0" prefWidth="309.0" />
+      <TextArea fx:id="reportTextArea" layoutX="200.0" layoutY="59.0" prefHeight="364.0" prefWidth="310.0" />
       <Label layoutX="60.0" layoutY="47.0" text="Reports">
          <font>
             <Font size="24.0" />
@@ -14,9 +14,10 @@
       </Label>
       <Button layoutX="53.0" layoutY="118.0" mnemonicParsing="false" onAction="#runReportOne" text="Report 1" />
       <Button layoutX="53.0" layoutY="215.0" mnemonicParsing="false" onAction="#runReportTwo" text="Report 2" />
-      <Button layoutX="53.0" layoutY="383.0" mnemonicParsing="false" onAction="#runReportThree" text="Report 3" />
+      <Button layoutX="53.0" layoutY="285.0" mnemonicParsing="false" onAction="#runReportThree" text="Report 3" />
       <Label layoutX="21.0" layoutY="93.0" text="Monthly Appointments:" />
       <Label layoutX="21.0" layoutY="153.0" text="Appointment by Contact:" />
       <ComboBox fx:id="contactSelect" layoutX="13.0" layoutY="177.0" prefWidth="150.0" />
+      <Label layoutX="27.0" layoutY="255.0" text="Customers Per Country" />
    </children>
 </AnchorPane>
