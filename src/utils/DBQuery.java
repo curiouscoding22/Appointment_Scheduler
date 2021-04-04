@@ -11,7 +11,7 @@ public class DBQuery {
     public static ObservableList<Appointment>getAppointments() throws SQLException, ClassNotFoundException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         Connection connection = DBConnection.beginConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT appointment_ID, title, description, location, type, start, end, customer_ID, contacts.contact_Name FROM appointments,contacts WHERE appointments.contact_ID = contacts.contact_ID");
+        PreparedStatement statement = connection.prepareStatement("SELECT appointment_ID, title, description, location, type, start, end, customer_ID, user_ID, contacts.contact_Name FROM appointments,contacts WHERE appointments.contact_ID = contacts.contact_ID");
         ResultSet result = statement.executeQuery();
         while(result.next()){
             Appointment appointment = new Appointment();
@@ -23,6 +23,7 @@ public class DBQuery {
             appointment.setStart(result.getTimestamp("start").toLocalDateTime());
             appointment.setEnd((result.getTimestamp("end").toLocalDateTime()/*.atZone(ZoneId.systemDefault()))*/));
             appointment.setCustomerID(result.getInt("customer_ID"));
+            appointment.setUserID(result.getInt("user_ID"));
             appointment.setContact(result.getString("contact_Name"));
             appointments.add(appointment);
         }
@@ -180,7 +181,7 @@ public class DBQuery {
         Timestamp startTime = Timestamp.valueOf(appointment.getStart());
         Timestamp endTime = Timestamp.valueOf(appointment.getEnd());
         Connection connection = DBConnection.beginConnection();
-        String query = "UPDATE appointments SET title = ?, description = ?, location = ?, type = ?, start = ?, end = ?, last_update = now(), last_updated_by = 'User', customer_ID = ?, contact_ID = ? WHERE appointment_ID = ?";
+        String query = "UPDATE appointments SET title = ?, description = ?, location = ?, type = ?, start = ?, end = ?, last_update = now(), last_updated_by = 'User', customer_ID = ?, user_ID = ?, contact_ID = ? WHERE appointment_ID = ?";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, appointment.getTitle());
         statement.setString(2, appointment.getDescription());
@@ -189,8 +190,9 @@ public class DBQuery {
         statement.setTimestamp(5, startTime);
         statement.setTimestamp(6, endTime);
         statement.setInt(7, appointment.getCustomerID());
-        statement.setInt(8, appointment.getContactID());
-        statement.setInt(9, appointment.getAppointmentID());
+        statement.setInt(8, appointment.getUserID());
+        statement.setInt(9, appointment.getContactID());
+        statement.setInt(10, appointment.getAppointmentID());
         statement.execute();
     }
 

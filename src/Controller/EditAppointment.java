@@ -3,6 +3,7 @@ package Controller;
 import Model.Appointment;
 import Model.Contact;
 import Model.Customer;
+import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,6 +37,7 @@ public class EditAppointment implements Initializable {
     @FXML private ComboBox<String> endMinCombo;
     @FXML private ComboBox endAMPM;
     @FXML private ComboBox customerCombo;
+    @FXML private ComboBox userCombo;
     @FXML private Button cancelButton;
 
     private Appointment appointment;
@@ -71,6 +73,16 @@ public class EditAppointment implements Initializable {
         }
 
         contactCombo.setItems(Contact.contacts);
+
+        try{
+            User.users = DBQuery.getUsers();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        userCombo.setItems(User.users);
 
         IDField.setEditable(false);
 
@@ -136,10 +148,16 @@ public class EditAppointment implements Initializable {
             }
         }
 
+        for(User u : User.users){
+            if(appointment.getUserID() == u.getUserID()){
+                userCombo.setValue(u);
+            }
+        }
+
 
     }
 
-    /*public void saveUpdatedAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    public void saveUpdatedAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         int updateID = Integer.parseInt(IDField.getText());
         String updateTitle = titleField.getText();
         String updateDesc = descriptionField.getText();
@@ -149,6 +167,9 @@ public class EditAppointment implements Initializable {
         int updateConID = con.getContactID();
         String updateType = typeField.getText();
         LocalDate updateDate = dateSelector.getValue();
+        User updateUser = (User) userCombo.getValue();
+        Customer cus = (Customer) customerCombo.getValue();
+        int custIDUpdate = cus.getCustomerID();
 
         int sHour = startHRCombo.getValue();
         if(startHRCombo.getValue().equals(12) && startAMPM.getValue().equals("PM")){
@@ -186,7 +207,9 @@ public class EditAppointment implements Initializable {
         LocalTime meetingEndTime = LocalTime.parse(endHour + ":" + endMinute);
         LocalDateTime endMeeting = LocalDateTime.of(updateDate, meetingEndTime);
 
-        Appointment updateAppointment = new Appointment(updateID, updateConID, updateTitle, updateDesc, updateLocation, updateType, startMeeting, endMeeting, updateContact, updateConID);
+        int userUpdate = updateUser.getUserID();
+
+        Appointment updateAppointment = new Appointment(updateID, updateTitle, updateDesc, updateLocation, updateType, startMeeting, endMeeting, custIDUpdate, userUpdate, updateConID, updateContact);
 
         if(!Validate.businessHoursCheck(appointment)){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -226,7 +249,7 @@ public class EditAppointment implements Initializable {
         }
         return;
 
-        *//*if(!Validate.appointmentOverlapCheck(appointment)) {
+        /*if(!Validate.appointmentOverlapCheck(appointment)) {
             try {
                 DBQuery.updateAppointment(updateAppointment);
                 IDField.clear();
@@ -256,8 +279,8 @@ public class EditAppointment implements Initializable {
                 alert.showAndWait();
             }
             return;
-        }*//*
-    }*/
+        }*/
+    }
 
     public void cancelUpdate(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

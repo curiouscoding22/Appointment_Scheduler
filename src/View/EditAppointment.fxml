@@ -30,11 +30,13 @@
       <ComboBox fx:id="endMinCombo" layoutX="218.0" layoutY="380.0" prefWidth="70.0" promptText="Min" />
       <ComboBox fx:id="endAMPM" layoutX="295.0" layoutY="380.0" prefWidth="86.0" promptText="AM/PM" />
       <ComboBox fx:id="customerCombo" layoutX="137.0" layoutY="413.0" prefWidth="150.0" />
-      <Button fx:id="cancelButton" layoutX="330.0" layoutY="472.0" mnemonicParsing="false" onAction="#cancelUpdate" text="Cancel" />
-      <Button layoutX="292.0" layoutY="472.0" mnemonicParsing="false" onAction="#saveUpdatedAppointment" text="Save" />
+      <Button fx:id="cancelButton" layoutX="331.0" layoutY="491.0" mnemonicParsing="false" onAction="#cancelUpdate" text="Cancel" />
+      <Button layoutX="293.0" layoutY="491.0" mnemonicParsing="false" onAction="#saveUpdatedAppointment" text="Save" />
       <Label layoutX="85.0" layoutY="27.0" text="Update Appointment">
          <font>
             <Font size="24.0" />
          </font></Label>
+      <ComboBox fx:id="userCombo" layoutX="137.0" layoutY="448.0" prefWidth="150.0" />
+      <Label layoutX="43.0" layoutY="452.0" text="User" />
    </children>
 </AnchorPane>
