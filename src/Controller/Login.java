@@ -30,6 +30,8 @@ public class Login implements Initializable {
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
     @FXML private Label timeZoneLocation;
+    @FXML private Label errorMessage;
+
 
     @FXML private void applicationLogin(ActionEvent actionEvent) throws IOException {
 
@@ -63,11 +65,7 @@ public class Login implements Initializable {
 
             outputFile.println("Failed: " + userName + " : " + LocalDateTime.now());
             outputFile.close();
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Input Error");
-            alert.setContentText("Username or password is incorrect");
-            alert.showAndWait();
+            errorMessage.setText("Attempt failed. Please check username and password.");
         }
 
 
