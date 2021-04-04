@@ -93,6 +93,22 @@ public class DBQuery {
         return contacts;
     }
 
+    public static ObservableList<User> getUsers() throws SQLException, ClassNotFoundException {
+        ObservableList<User> users = FXCollections.observableArrayList();
+        Connection connection = DBConnection.beginConnection();
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM users");
+        ResultSet result = statement.executeQuery();
+        while(result.next()){
+            User user = new User();
+            user.setUserID(result.getInt("user_ID"));
+            user.setUserName(result.getString("user_name"));
+            user.setPassword("password");
+            users.add(user);
+        }
+        return users;
+    }
+
+
     public static void addNewCustomer(Customer customer) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
         String sqlQuery =
