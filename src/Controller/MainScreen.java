@@ -87,7 +87,7 @@ public class MainScreen implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/View/addAppointment.fxml"));
         Stage addAppointment = new Stage();
         addAppointment.setTitle("Add Appointment");
-        addAppointment.setScene(new Scene(root, 428, 539));
+        addAppointment.setScene(new Scene(root, 428, 527));
         addAppointment.show();
     }
 

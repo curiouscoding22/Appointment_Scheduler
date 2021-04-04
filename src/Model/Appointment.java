@@ -7,24 +7,29 @@ import java.time.LocalDateTime;
 
 public class Appointment {
 
-    private int appointmentID, customerID, contactID;
-    private String title, description, location, type;
+    private int appointmentID;
+    private String title;
+    private String description;
+    private String location;
+    private String type;
     private LocalDateTime start, end;
+    private int customerID;
+    private int userID;
+    private int contactID;
     private String contact;
 
-    public Appointment(){}
-
-    public Appointment(int appointmentID, int customerID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, String contact, int contactID) {
+    public Appointment(int appointmentID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID, String contact) {
         this.appointmentID = appointmentID;
-        this.customerID = customerID;
         this.title = title;
         this.description = description;
         this.location = location;
         this.type = type;
         this.start = start;
         this.end = end;
-        this.contact = contact;
+        this.customerID = customerID;
+        this.userID = userID;
         this.contactID = contactID;
+        this.contact = contact;
     }
 
     public int getAppointmentID() {
@@ -33,14 +38,6 @@ public class Appointment {
 
     public void setAppointmentID(int appointmentID) {
         this.appointmentID = appointmentID;
-    }
-
-    public int getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
     }
 
     public String getTitle() {
@@ -91,12 +88,20 @@ public class Appointment {
         this.end = end;
     }
 
-    public String getContact() {
-        return contact;
+    public int getCustomerID() {
+        return customerID;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public int getContactID() {
@@ -106,6 +111,18 @@ public class Appointment {
     public void setContactID(int contactID) {
         this.contactID = contactID;
     }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public Appointment(){}
+
+
 
     public static ObservableList appointments = FXCollections.observableArrayList();
 }

@@ -3,6 +3,7 @@ package Controller;
 import Model.Appointment;
 import Model.Contact;
 import Model.Customer;
+import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,6 +35,7 @@ public class AddAppointment implements Initializable {
     @FXML private ComboBox <String>endMin;
     @FXML private ComboBox endTOD;
     @FXML private ComboBox customer;
+    @FXML private ComboBox user;
     @FXML private Button cancelButton;
 
     public void saveNewAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
@@ -46,6 +48,7 @@ public class AddAppointment implements Initializable {
         int contactMeet = newContact.getContactID();
         String newType = type.getText();
         LocalDate newDate = startDate.getValue();
+        User newUser = (User) user.getValue();
 
         int sHour = startHr.getValue();
         if(startHr.getValue().equals(12) && startTOD.getValue().equals("PM")){
@@ -86,7 +89,9 @@ public class AddAppointment implements Initializable {
         Customer selectedCustomer = (Customer) customer.getValue();
         int custID = selectedCustomer.getCustomerID();
 
-        Appointment appointment = new Appointment(newID, custID, newTitle, newDescription, newLocation, newType, startMeeting, endMeeting, meetContact, contactMeet);
+        int userID = newUser.getUserID();
+
+        Appointment appointment = new Appointment(newID, newTitle, newDescription, newLocation, newType, startMeeting, endMeeting, custID, userID, contactMeet,  meetContact);
 
         if(!Validate.businessHoursCheck(appointment)){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -214,6 +219,16 @@ public class AddAppointment implements Initializable {
         }
 
         contact.setItems(Contact.contacts);
+
+        try{
+            User.users = DBQuery.getUsers();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        user.setItems(User.users);
 
         ID.setEditable(false);
     }

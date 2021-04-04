@@ -41,7 +41,7 @@ public class User {
         this.password = password;
     }
 
-    public static ObservableList<Contact> users = FXCollections.observableArrayList();
+    public static ObservableList<User> users = FXCollections.observableArrayList();
 
     @Override
     public String toString(){

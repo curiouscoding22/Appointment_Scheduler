@@ -108,7 +108,6 @@ public class DBQuery {
         return users;
     }
 
-
     public static void addNewCustomer(Customer customer) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
         String sqlQuery =
@@ -163,7 +162,7 @@ public class DBQuery {
         Connection connection = DBConnection.beginConnection();
         String query =
                 "INSERT INTO appointments(appointment_ID, title, description, location, type, start, end, create_date, created_by, last_update, last_updated_by, customer_ID, user_ID, contact_ID)" +
-                        "VALUES(NULL, ?, ?, ?, ?, ?, ?, now(), 'User', now(), 'User', ?, NULL, ?)";
+                        "VALUES(NULL, ?, ?, ?, ?, ?, ?, now(), 'User', now(), 'User', ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, appointment.getTitle());
         statement.setString(2, appointment.getDescription());
@@ -172,7 +171,8 @@ public class DBQuery {
         statement.setTimestamp(5, startTime);
         statement.setTimestamp(6, endTime);
         statement.setInt(7, appointment.getCustomerID());
-        statement.setInt(8, appointment.getContactID());
+        statement.setInt(8, appointment.getUserID());
+        statement.setInt(9, appointment.getContactID());
         statement.execute();
     }
 

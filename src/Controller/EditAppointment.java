@@ -139,7 +139,7 @@ public class EditAppointment implements Initializable {
 
     }
 
-    public void saveUpdatedAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    /*public void saveUpdatedAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         int updateID = Integer.parseInt(IDField.getText());
         String updateTitle = titleField.getText();
         String updateDesc = descriptionField.getText();
@@ -226,7 +226,7 @@ public class EditAppointment implements Initializable {
         }
         return;
 
-        /*if(!Validate.appointmentOverlapCheck(appointment)) {
+        *//*if(!Validate.appointmentOverlapCheck(appointment)) {
             try {
                 DBQuery.updateAppointment(updateAppointment);
                 IDField.clear();
@@ -256,8 +256,8 @@ public class EditAppointment implements Initializable {
                 alert.showAndWait();
             }
             return;
-        }*/
-    }
+        }*//*
+    }*/
 
     public void cancelUpdate(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
