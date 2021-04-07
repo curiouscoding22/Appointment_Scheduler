@@ -24,23 +24,27 @@ public class Validate {
     }
 
     public static boolean appointmentOverlapCheck(Appointment appointment){
-        boolean isOverlapping = true;
+        boolean isOverlapping = false;
         LocalDateTime startUTC = appointment.getStart();
         LocalDateTime endUTC = appointment.getEnd();
 
         for(int i = 0; i < Appointment.appointments.size(); ++i) {
             Appointment app = (Appointment) Appointment.appointments.get(i);
             if (appointment.getCustomerID() == app.getCustomerID()) {
-                if(appointment.getStart().isBefore(app.getStart()) && appointment.getEnd().isBefore(app.getStart()) && appointment.getStart().isAfter(app.getEnd()))  {
-                    System.out.println("This does not overlap.");
-                    isOverlapping = false;
+                if(startUTC.isAfter(app.getStart()) && startUTC.isBefore(app.getEnd()))  {
+                    System.out.println("Start is overlapping");
+                    isOverlapping = true;
+                } else if(endUTC.isAfter(app.getStart()) && endUTC.isBefore(app.getEnd())){
+                    isOverlapping = true;
+                } else if(app.getStart().isAfter(startUTC) && app.getEnd().isBefore(endUTC)){
+                    isOverlapping = true;
                 }
             }
         }
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        /*Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Overlapping Appointment");
         alert.setContentText("This customer already has an appointment at that time");
-        alert.showAndWait();
+        alert.showAndWait();*/
         return isOverlapping;
     }
 

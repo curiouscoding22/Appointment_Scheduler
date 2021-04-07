@@ -38,6 +38,11 @@ public class AddAppointment implements Initializable {
     @FXML private ComboBox user;
     @FXML private Button cancelButton;
 
+    /**This is the save new appointment method. This method takes the user input and creates an appointment object that is added to the database.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public void saveNewAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         int newID = Appointment.appointments.size() + 1;
         String newTitle = title.getText();
@@ -101,42 +106,7 @@ public class AddAppointment implements Initializable {
             return;
         }
 
-        try{
-            DBQuery.addNewAppointment(appointment);
-            ID.clear();
-            title.clear();
-            description.clear();
-            location.clear();
-            contact.setValue(null);
-            type.clear();
-            startDate.setValue(null);
-            startHr.setValue(null);
-            startHr.setPromptText("Hour");
-            startMin.setValue(null);
-            startMin.setPromptText("Min");
-            startTOD.setValue(null);
-            startTOD.setPromptText("AM/PM");
-            endHr.setValue(null);
-            endHr.setPromptText("Hour");
-            endMin.setValue(null);
-            endMin.setPromptText("Min");
-            endTOD.setValue(null);
-            endTOD.setPromptText("AM/PM");
-            customer.setValue(null);
-            DBQuery.updateAppointmentList();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Appointment Added");
-            alert.setContentText("Appointment successfully added.");
-            alert.showAndWait();
-        } catch (Exception e){
-            System.out.println(e);
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Add Unsuccessful");
-            alert.setContentText("Review the information entered.");
-            alert.showAndWait();
-        }
-
-        /*if(!Validate.appointmentOverlapCheck(appointment)){
+        if(!Validate.appointmentOverlapCheck(appointment)){
             try{
                 DBQuery.addNewAppointment(appointment);
                 ID.clear();
@@ -159,6 +129,7 @@ public class AddAppointment implements Initializable {
                 endTOD.setValue(null);
                 endTOD.setPromptText("AM/PM");
                 customer.setValue(null);
+                user.setValue(null);
                 DBQuery.updateAppointmentList();
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Appointment Added");
@@ -172,9 +143,19 @@ public class AddAppointment implements Initializable {
                 alert.showAndWait();
             }
             return;
-        }*/
+        } else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Overlapping Appointment");
+            alert.setContentText("This customer already has an appointment at that time");
+            alert.showAndWait();
+        }
+
     }
 
+
+    /**This is the cancel appointment method. This method closes out the add appointment form if the user clicks the "Cancel" button.
+     * @param actionEvent
+     */
     public void cancelAddAppointment(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancel Add Customer");
@@ -187,6 +168,10 @@ public class AddAppointment implements Initializable {
         });
     }
 
+    /**This method initializes the combo boxes for collecting the user input
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
