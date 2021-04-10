@@ -38,10 +38,10 @@ public class AddAppointment implements Initializable {
     @FXML private ComboBox user;
     @FXML private Button cancelButton;
 
-    /**This is the save new appointment method. This method takes the user input and creates an appointment object that is added to the database.
+    /**This is the save new appointment method. This method takes the user input and creates an appointment object that is added to the database. It then resets the prompts for the combo boxes.
      * @param actionEvent
-     * @throws SQLException
-     * @throws ClassNotFoundException
+     * @throws SQLException thrown if the SQL query was unsuccessful
+     * @throws ClassNotFoundException thrown if the class load was unsuccessful
      */
     public void saveNewAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         int newID = Appointment.appointments.size() + 1;

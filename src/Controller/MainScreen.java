@@ -42,6 +42,10 @@ public class MainScreen implements Initializable {
     @FXML private Button exitButton;
     private ToggleGroup appFilter;
 
+    /**This is the initialize method. This method sets the appointments table to the values from the database.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -75,6 +79,10 @@ public class MainScreen implements Initializable {
 
     }
 
+    /**This method changes the user's window view from the appointment menu to the customer menu.
+     * @param actionEvent the user clicking on the "Customers" button.
+     * @throws IOException
+     */
     public void changeToCustomer(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/View/Customers.fxml"));
         Scene scene = new Scene(parent);
@@ -83,6 +91,10 @@ public class MainScreen implements Initializable {
         stage.show();
     }
 
+    /**This is the add appointment menu method. This method creates the stage for adding a new appointment.
+     * @param actionEvent the user clicking the "Add" button.
+     * @throws IOException
+     */
     public void addAppointment(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/addAppointment.fxml"));
         Stage addAppointment = new Stage();
@@ -91,6 +103,10 @@ public class MainScreen implements Initializable {
         addAppointment.show();
     }
 
+    /**This is the update appointment menu method. This method creates the stage for updating an existing appointment. The user must have an appointment selected to update or an alert is thrown prompting them to select one.
+     * @param actionEvent the user clicking the "Update" button.
+     * @throws IOException
+     */
     public void updateAppointment(ActionEvent actionEvent) throws IOException {
         if(appointmentTable.getSelectionModel().getSelectedItem() != null){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/EditAppointment.fxml"));
@@ -111,6 +127,11 @@ public class MainScreen implements Initializable {
 
     }
 
+    /**This is the delete appointment method. This method deletes the selected appointment after first throwing an alert to confirm the user's intent.
+     * @param actionEvent the user clicking the "Delete" button.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public void deleteAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         if(appointmentTable.getSelectionModel().getSelectedItem() != null){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -140,6 +161,9 @@ public class MainScreen implements Initializable {
         }
     }
 
+    /**This is the exit function. This method terminates the application.
+     * @param actionEvent the user clicking the "Exit" button.
+     */
     public void exitFromMain(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit Application");
@@ -152,6 +176,9 @@ public class MainScreen implements Initializable {
         });
     }
 
+    /**This is the method for the weekly radio button. This updates the appointments shown in the table to a range of the current day plus seven days to show the appointments occurring within one week.
+     * @param actionEvent the user clicking the "Weekly" button.
+     */
     public void showWeekly(ActionEvent actionEvent) {
         LocalDate current = LocalDate.now();
         LocalDate endOfWeek = current.plusDays(7);
@@ -167,6 +194,9 @@ public class MainScreen implements Initializable {
         }
     }
 
+    /**This is the method for the monthly radio button. This updates the appointments shown in the table to a range of the current day plus 30 days to show the appointments occurring within one month.
+     * @param actionEvent the user clicking the "Monthly" button.
+     */
     public void showMonthly(ActionEvent actionEvent) {
         LocalDate current = LocalDate.now();
         LocalDate endOfMonth = current.plusMonths(1);
@@ -182,12 +212,19 @@ public class MainScreen implements Initializable {
         }
     }
 
+    /**This is the method to display all appointments. This updates the appointments shown in the table to all the appointments in the database.
+     * @param actionEvent the user clicking the "All Appointments" button.
+     */
     public void showAll(ActionEvent actionEvent) {
         if(appFilter.getSelectedToggle().equals(allAppointments)){
             appointmentTable.setItems(Appointment.appointments);
         }
     }
 
+    /**When the reports button is clicked by the user, this method creates the reports stage.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void goToReports(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/Reports.fxml"));
         Stage reportMenu = new Stage();

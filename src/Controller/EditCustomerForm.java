@@ -27,11 +27,12 @@ public class EditCustomerForm implements Initializable {
     @FXML private ComboBox updateFirstDiv;
 
     @FXML private Button cancelButton;
-
-
     private Customer customer;
 
 
+    /**This is the customer retrieval method. When the user selects a customer to edit, this method collects the customer information and puts it into the fields for editing.
+     * @param selectCustomer
+     */
     public void retrieveSelectCustomer(Customer selectCustomer) {
         this.customer = selectCustomer;
         updateCustID.setText(Integer.toString(customer.getCustomerID()));
@@ -48,6 +49,9 @@ public class EditCustomerForm implements Initializable {
         }
     }
 
+    /**This is the cancel method. This method confirms the user's intent and closes the window.
+     * @param actionEvent
+     */
     public void cancelUpdate(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancel Add Customer");
@@ -60,6 +64,9 @@ public class EditCustomerForm implements Initializable {
         });
     }
 
+    /**This is the set divison method. This method sets the division ID for the customer object based on the users choice in the Country combo box.
+     * @param actionEvent
+     */
     public void setUpdatedDIv(ActionEvent actionEvent) {
         Country country = (Country) updateCountry.getValue();
         ObservableList<FirstLevel> divisions = FirstLevel.firstLevels;
@@ -72,6 +79,10 @@ public class EditCustomerForm implements Initializable {
         updateFirstDiv.setItems(sortedDivisions);
     }
 
+    /**This method initializes and sets the information for the combo boxes on the edit customer form
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -97,6 +108,11 @@ public class EditCustomerForm implements Initializable {
 
     }
 
+    /**THis is the save updated customer method. This method collects the user entered information and updates the user in the database by running the SQL query and matching the customer ID number.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public void saveUpdatedCustomer(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         int updateID = Integer.parseInt(updateCustID.getText());
         String updateName = updateCustName.getText();
@@ -113,8 +129,6 @@ public class EditCustomerForm implements Initializable {
 
 
     }
-
-
 }
 
 

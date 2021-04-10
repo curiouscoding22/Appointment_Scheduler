@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,6 +32,10 @@ public class Login implements Initializable {
     @FXML private Label errorMessage;
 
 
+    /**This is the login method. This method confirms the correct username and password have been entered and opens the application. If it has not been entered, the user is prompted to fix the error.
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML private void applicationLogin(ActionEvent actionEvent) throws IOException {
 
         String filename = "src/Activity_Log.txt";
@@ -71,6 +74,10 @@ public class Login implements Initializable {
 
     }
 
+    /**This is the initialize method. This method creates an instance that is used to set the time on the login screen.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

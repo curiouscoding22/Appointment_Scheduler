@@ -29,6 +29,10 @@ public class CustomerMenu implements Initializable {
     @FXML private TableColumn<Customer, String> phone;
     @FXML private Button exitApplication;
 
+    /** This method sets the customer Observable List from the SQL query and uses the list to fill the customer table.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -49,6 +53,10 @@ public class CustomerMenu implements Initializable {
         phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
     }
 
+    /** This method switches the user's view from the customer menu to the appointment menu.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void returnToAppointments(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
         Scene scene = new Scene(parent);
@@ -57,6 +65,10 @@ public class CustomerMenu implements Initializable {
         stage.show();
     }
 
+    /** This is the add new customer button method. When selected, this method creates the add customer window for collecting new customer information.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void addNewCustomer(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/addCustomerForm.fxml"));
         Stage addCustomer = new Stage();
@@ -66,6 +78,10 @@ public class CustomerMenu implements Initializable {
 
     }
 
+    /** This is the edit customer button method. When selected, this method creates the edit customer window for editing existing customer information. If there isn't a customer selected when the button is clicked, an error message appears instructing the user to select a customer to edit.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void editCustomer(ActionEvent actionEvent) throws IOException {
         if(customerTable.getSelectionModel().getSelectedItem() != null) {
             try {
@@ -90,6 +106,9 @@ public class CustomerMenu implements Initializable {
         }
     }
 
+    /**This is the exit button method. When selected, this button generates an alert to confirm the users intention and closes the application if confirmed.
+     * @param actionEvent
+     */
     public void exitApplication(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit Application");
@@ -102,6 +121,11 @@ public class CustomerMenu implements Initializable {
         });
     }
 
+    /** This is the delete button method. When selected, an alert confirms the user wants to delete the selected customer. If it is confirmed, all the customers appointments are delete first, then the customer is deleted.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public void deleteSelectCustomer(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         if(customerTable.getSelectionModel().getSelectedItem() != null){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

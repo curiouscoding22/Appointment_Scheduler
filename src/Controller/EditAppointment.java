@@ -42,6 +42,10 @@ public class EditAppointment implements Initializable {
 
     private Appointment appointment;
 
+    /** This method initializes the hour, minute and time of day combo boxes as well as sets the lists for the customer, contact and user combo boxes.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Integer> comboHours = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12);
@@ -88,6 +92,9 @@ public class EditAppointment implements Initializable {
 
     }
 
+    /**This is the retrieve appointment method. This method takes the appointment selected by the user to edit and fills im the fields with the appoinements information.
+     * @param appointment
+     */
     public void retrieveSelectAppointment(Appointment appointment) {
         this.appointment = appointment;
         IDField.setText(Integer.toString(appointment.getAppointmentID()));
@@ -157,6 +164,11 @@ public class EditAppointment implements Initializable {
 
     }
 
+    /**This is the method that saves the updated appointment. The method takes the information from the fields and updates the appointment in the database that matches the appointment ID.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public void saveUpdatedAppointment(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         int updateID = Integer.parseInt(IDField.getText());
         String updateTitle = titleField.getText();
@@ -219,37 +231,7 @@ public class EditAppointment implements Initializable {
             return;
         }
 
-        try {
-            DBQuery.updateAppointment(updateAppointment);
-            IDField.clear();
-            titleField.clear();
-            descriptionField.clear();
-            locationField.clear();
-            contactCombo.setValue(null);
-            typeField.clear();
-            dateSelector.setValue(null);
-            startHRCombo.setValue(null);
-            startMinCombo.setValue(null);
-            startAMPM.setValue(null);
-            endHRCombo.setValue(null);
-            endMinCombo.setValue(null);
-            endAMPM.setValue(null);
-            customerCombo.setValue(null);
-            DBQuery.updateAppointmentList();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Appointment Updated");
-            alert.setContentText("Appointment successfully updated.");
-            alert.showAndWait();
-        } catch (Exception e) {
-            System.out.println(e);
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Update Unsuccessful");
-            alert.setContentText("Review the information entered.");
-            alert.showAndWait();
-        }
-        return;
-
-        /*if(!Validate.appointmentOverlapCheck(appointment)) {
+        if(!Validate.appointmentOverlapCheck(updateAppointment)) {
             try {
                 DBQuery.updateAppointment(updateAppointment);
                 IDField.clear();
@@ -260,12 +242,19 @@ public class EditAppointment implements Initializable {
                 typeField.clear();
                 dateSelector.setValue(null);
                 startHRCombo.setValue(null);
+                startHRCombo.setPromptText("Hour");
                 startMinCombo.setValue(null);
+                startMinCombo.setPromptText("Min");
                 startAMPM.setValue(null);
+                startAMPM.setPromptText("AM/PM");
                 endHRCombo.setValue(null);
+                endHRCombo.setPromptText("Hour");
                 endMinCombo.setValue(null);
+                endMinCombo.setPromptText("Min");
                 endAMPM.setValue(null);
+                endAMPM.setPromptText("AM/PM");
                 customerCombo.setValue(null);
+                userCombo.setValue(null);
                 DBQuery.updateAppointmentList();
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Appointment Updated");
@@ -279,9 +268,17 @@ public class EditAppointment implements Initializable {
                 alert.showAndWait();
             }
             return;
-        }*/
+        } else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Overlapping Appointment");
+            alert.setContentText("This customer already has an appointment at that time");
+            alert.showAndWait();
+        }
     }
 
+    /**This is the cancel method. When the user clicks the Cancel button, this method confirms their intent then closes the stage.
+     * @param actionEvent
+     */
     public void cancelUpdate(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancel Add Customer");
@@ -293,6 +290,4 @@ public class EditAppointment implements Initializable {
             }
         });
     }
-
-
 }
