@@ -6,8 +6,15 @@ import javafx.scene.control.Alert;
 import java.time.*;
 import java.time.chrono.ChronoLocalDateTime;
 
+/**
+ * This is the validation class. This class contains methods used to assist the user in validating appointment times and alerting them in the case of a rapidly approaching appointment when they log in.
+ */
 public class Validate {
 
+    /**This method is used when creating or updating an appointment to confirm that the proposed start and end times fall within the business' hours of operation.
+     * @param appointment the appointment being checked.
+     * @return
+     */
     public static boolean businessHoursCheck(Appointment appointment){
         ZonedDateTime startTime = appointment.getStart().atZone(ZoneId.of("America/New_York"));
         LocalDateTime endTime = appointment.getEnd();
@@ -23,6 +30,10 @@ public class Validate {
 
     }
 
+    /**This method is used when creating or updating an appointment to confirm the proposed start and end times do not overlap with existing appointments. If they do, the user is alerted and prompted to correct the times.
+     * @param appointment the appointment being checked,
+     * @return
+     */
     public static boolean appointmentOverlapCheck(Appointment appointment){
         boolean isOverlapping = false;
         LocalDateTime startUTC = appointment.getStart();
@@ -41,13 +52,12 @@ public class Validate {
                 }
             }
         }
-        /*Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Overlapping Appointment");
-        alert.setContentText("This customer already has an appointment at that time");
-        alert.showAndWait();*/
         return isOverlapping;
     }
 
+    /**This method alerts the user if there is an appointment scheduled within fifteen minutes of their successful login and provides the description of the appointment for the user to quickly identify which appointment it is. .
+     * @return
+     */
     public static boolean fifteenMinuteWarning(){
         LocalDateTime userLogin = LocalDateTime.now();
         LocalDateTime checkWindow = userLogin.plusMinutes(15);

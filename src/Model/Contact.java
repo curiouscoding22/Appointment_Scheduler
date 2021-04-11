@@ -26,42 +26,42 @@ public class Contact {
     }
 
     /**This method returns the contact ID number.
-     * @return
+     * @return the contact ID number.
      */
     public int getContactID() {
         return contactID;
     }
 
     /**This method sets the contact ID number.
-     * @param contactID
+     * @param contactID the contact ID number.
      */
     public void setContactID(int contactID) {
         this.contactID = contactID;
     }
 
     /**This method returns the contact name.
-     * @return
+     * @return the contact name.
      */
     public String getContactName() {
         return contactName;
     }
 
     /**This method sets the contact name.
-     * @param contactName
+     * @param contactName the contact name to set.
      */
     public void setContactName(String contactName) {
         this.contactName = contactName;
     }
 
     /**This method returns the contact email.
-     * @return
+     * @return the contact email.
      */
     public String getContactEmail() {
         return contactEmail;
     }
 
     /**This method sets the contact email.
-     * @param contactEmail
+     * @param contactEmail the email to set.
      */
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;

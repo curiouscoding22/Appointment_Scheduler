@@ -10,9 +10,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This is the report query class. This class contains methods for running reports on the database.
+ */
 public class ReportQuery {
 
-
+    /**This is the first report method. This method runs a query to find the number of different tpyes of reports within the next month period.
+     * @return a string with the type of report and number of occurances of that type.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static String reportOne() throws SQLException, ClassNotFoundException {
         LocalDateTime current = LocalDateTime.now();
         LocalDateTime oneMonth = current.plusMonths(1);
@@ -27,6 +34,12 @@ public class ReportQuery {
         return reportResult;
     }
 
+    /**This is the second report method. This report takes a contact name and runs a query to the database to return a schedule of that contact's appointments.
+     * @param selectedContact the contact that the schedule is being checked for.
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static ArrayList<String> reportTwo(Contact selectedContact) throws SQLException, ClassNotFoundException {
         String appID;
         String title;
@@ -63,6 +76,11 @@ public class ReportQuery {
         return contactApps;
     }
 
+    /**This is the third report method. This report runs a query to the database to determine the number of customers in the countries where the company has locations.
+     * @return a hashmap of key, value pairs of countries and customers.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static HashMap<String, Integer> reportThree() throws SQLException, ClassNotFoundException {
         String country;
         int cusCount = 1;

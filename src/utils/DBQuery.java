@@ -6,8 +6,16 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 
+/**
+ * This is the DBQuery class. This class contains the methods for running
+ */
 public class DBQuery {
 
+    /**This is the get appointments method. This method runs a query to the database to collect the appointment data for display and manipulation in the application.
+     * @return this method returns a list of all appointments in the database.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static ObservableList<Appointment>getAppointments() throws SQLException, ClassNotFoundException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         Connection connection = DBConnection.beginConnection();
@@ -30,6 +38,11 @@ public class DBQuery {
         return appointments;
     }
 
+    /**This is the get customers method. This method queries the database to return a list of all customers currently stored.
+     * @return this method returns a list of all customers in the database.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static ObservableList<Customer> getCustomers() throws SQLException, ClassNotFoundException {
         ObservableList<Customer> customers = FXCollections.observableArrayList();
         Connection connection = DBConnection.beginConnection();
@@ -50,6 +63,11 @@ public class DBQuery {
         return customers;
     }
 
+    /**This is the get countries method. This method queries the database to return a list of all countries currently stored.
+     * @return this method returns a list of all countries in the database
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static ObservableList<Country> getCountries() throws SQLException, ClassNotFoundException {
         ObservableList<Country> DBcountries = FXCollections.observableArrayList();
         Connection connection = DBConnection.beginConnection();
@@ -64,6 +82,11 @@ public class DBQuery {
         return DBcountries;
     }
 
+    /**This is the get first level method. This method runs a query to the database and returns a list of all First Level Divisions currently stored.
+     * @return this method returns a list of all first level divisions in the database.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static ObservableList<FirstLevel> getFirstLevel() throws SQLException, ClassNotFoundException {
         ObservableList<FirstLevel> firstLevels = FXCollections.observableArrayList();
         Connection connection = DBConnection.beginConnection();
@@ -79,6 +102,11 @@ public class DBQuery {
         return firstLevels;
     }
 
+    /**This is the get contacts method. This method runs a query to the database and returns a list of all contacts currently stored.
+     * @return this method returns a list of all contacts in the database.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static ObservableList<Contact> getContacts() throws SQLException, ClassNotFoundException {
         ObservableList<Contact> contacts = FXCollections.observableArrayList();
         Connection connection = DBConnection.beginConnection();
@@ -94,6 +122,11 @@ public class DBQuery {
         return contacts;
     }
 
+    /**This is the get users method. This method runs a query to the database and returns a list of all users currently stored.
+     * @return this method returns a list of all users currently in the database.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static ObservableList<User> getUsers() throws SQLException, ClassNotFoundException {
         ObservableList<User> users = FXCollections.observableArrayList();
         Connection connection = DBConnection.beginConnection();
@@ -109,6 +142,11 @@ public class DBQuery {
         return users;
     }
 
+    /**This is the add new customer method. This method takes a customer object and runs a query to add a new customer into the database.
+     * @param customer the customer to be added.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static void addNewCustomer(Customer customer) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
         String sqlQuery =
@@ -124,6 +162,11 @@ public class DBQuery {
         statement.execute();
     }
 
+    /**This is the update customer method. This method takes a customer object that already exists ana runs a query to save a modified version over the existing version in the database.
+     * @param customer the customer being updated.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static void updateCustomer(Customer customer) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
         String sqlQuery =
@@ -138,6 +181,10 @@ public class DBQuery {
         statement.execute();
     }
 
+    /**This is the update customer list method. This method clears the existing customer list and runs a query to the database to repopulate it with all the customers once a customer has been added or updated.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static void updateCustomerList() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
         PreparedStatement statement = connection.prepareStatement(
@@ -157,6 +204,11 @@ public class DBQuery {
         }
     }
 
+    /**This is the add new appointment method. This method takes a new appointment object and runs a query to add it to the database.
+     * @param appointment the appointment that is being added.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static void addNewAppointment(Appointment appointment) throws SQLException, ClassNotFoundException {
         Timestamp startTime = Timestamp.valueOf(appointment.getStart());
         Timestamp endTime = Timestamp.valueOf(appointment.getEnd());
@@ -177,6 +229,11 @@ public class DBQuery {
         statement.execute();
     }
 
+    /**This is the update appointment method. This method takes an appointment object and runs a query to update the information with the existing appointment by verifying the appointment ID.
+     * @param appointment the appointment that is updated.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static void updateAppointment(Appointment appointment) throws SQLException, ClassNotFoundException{
         Timestamp startTime = Timestamp.valueOf(appointment.getStart());
         Timestamp endTime = Timestamp.valueOf(appointment.getEnd());
@@ -196,6 +253,10 @@ public class DBQuery {
         statement.execute();
     }
 
+    /**This is the update appointment list method. This method clears the existing appointment list and runs a query to the database to repopulate it with all the appointments once an appointment has been added or updated.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static void updateAppointmentList() throws SQLException, ClassNotFoundException {
         //ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         Connection connection = DBConnection.beginConnection();
@@ -219,6 +280,11 @@ public class DBQuery {
 
     }
 
+    /**This is the delete appointment method. This method removes an appointment from the database.
+     * @param selectedItem the appointment to be deleted.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static void deleteAppointment(Appointment selectedItem) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
         String sqlQuery = "DELETE FROM appointments WHERE appointment_ID = ?";
@@ -227,6 +293,11 @@ public class DBQuery {
         statement.execute();
     }
 
+    /**This is the delete customer method. This method first deletes any associated appointments due to foreign key constraints then deletes the specified customer.
+     * @param selectedItem the customer to be deleted.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static void deleteCustomer(Customer selectedItem) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.beginConnection();
         String sqlAppQuery = "DELETE FROM appointments WHERE customer_ID = ?";
