@@ -23,6 +23,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller class for the appointment side of the main menu of the application.
+ */
 public class MainScreen implements Initializable {
 
     @FXML private TableView<Appointment> appointmentTable;

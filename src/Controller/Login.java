@@ -20,6 +20,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+/**
+ * This is the controller class for the login menu.
+ */
 public class Login implements Initializable {
 
     private String userName;

@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the FXML controller for the Reports menu.
+ */
 public class Reports implements Initializable {
 
     @FXML private TextArea reportTextArea;

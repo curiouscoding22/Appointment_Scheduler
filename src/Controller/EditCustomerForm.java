@@ -16,6 +16,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller class for the edit customer menu,
+ */
 public class EditCustomerForm implements Initializable {
 
     @FXML private TextField updateCustID;

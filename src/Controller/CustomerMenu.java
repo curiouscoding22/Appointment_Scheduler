@@ -18,6 +18,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the controller for the Customer Menu  side of the main application interface.
+ */
 public class CustomerMenu implements Initializable {
 
     @FXML public TableView<Customer> customerTable;

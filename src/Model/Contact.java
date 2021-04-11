@@ -3,6 +3,9 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * This is the Contact class. This class is used to create Contact objects for the applicaiton.
+ */
 public class Contact {
 
     private int contactID;

@@ -7,7 +7,7 @@ import java.sql.*;
 
 
 /**
- * This is the DBQuery class. This class contains the methods for running
+ * This is the DBQuery class. This class contains the methods for running queries to the database to return select information for the user.
  */
 public class DBQuery {
 

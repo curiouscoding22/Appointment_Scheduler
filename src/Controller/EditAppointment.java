@@ -21,6 +21,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
+/**
+ * This is the edit appointment menu controller class.
+ */
 public class EditAppointment implements Initializable {
 
     @FXML private TextField IDField;

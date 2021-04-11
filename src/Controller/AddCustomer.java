@@ -16,6 +16,9 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
+/**
+ * This class is the controller for the add customer menu.
+ */
 public class AddCustomer implements Initializable {
 
     @FXML private TextField newCustID;

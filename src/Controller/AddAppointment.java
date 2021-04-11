@@ -19,6 +19,9 @@ import java.sql.SQLException;
 import java.time.*;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the FXML controller for the add appointment menu.
+ */
 public class AddAppointment implements Initializable {
 
     @FXML private TextField ID;
