@@ -22,7 +22,7 @@ public class Reports implements Initializable {
 
 
     /**This is the first report button method. When selected by the user, this method runs the first report SQL query and updates the text field with the returned information.
-     * @param actionEvent
+     * @param actionEvent the user clicking the report one button.
      * @throws SQLException
      * @throws ClassNotFoundException
      */
@@ -32,8 +32,8 @@ public class Reports implements Initializable {
         reportTextArea.appendText(ReportQuery.reportOne());
     }
 
-    /**This is the second report button method. When selected by the user, this method runs the first report SQL query and updates the text field with the returned information.
-     * @param actionEvent
+    /**This is the second report button method. When selected by the user, this method runs the first report SQL query and updates the text field with the returned information.This method uses a lambda expression to append the contents of the string to the text area which improves code readability and comprehension as well as make the code more concise.
+     * @param actionEvent the user clicking the report two button.
      * @throws SQLException
      * @throws ClassNotFoundException
      */
@@ -45,8 +45,8 @@ public class Reports implements Initializable {
         schedule.forEach( (i) -> {reportTextArea.appendText(i); reportTextArea.appendText("\n");});
     }
 
-    /**This is the third report button method. When selected by the user, this method runs the first report SQL query and updates the text field with the returned information.
-     * @param actionEvent
+    /**This is the third report button method. When selected by the user, this method runs the first report SQL query and updates the text field with the returned information. This method uses a lambda expression to append the contents of the hashmap to the text area which improves code readability and comprehension as well as make the code more concise.
+     * @param actionEvent the user clicking the report three button
      * @throws SQLException
      * @throws ClassNotFoundException
      */
