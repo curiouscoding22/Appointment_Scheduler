@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Contact;
 import Model.Customer;
+import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,7 +32,7 @@ public class Reports implements Initializable {
      */
     public void runReportOne(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         reportTextArea.clear();
-        reportTextArea.appendText("Number of appointments this month:\n");
+        reportTextArea.appendText("Appointment types per month:\n");
         reportTextArea.appendText(ReportQuery.reportOne());
     }
 
@@ -88,5 +89,14 @@ public class Reports implements Initializable {
             e.printStackTrace();
         }
 
+        try {
+            User.users = DBQuery.getUsers();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
+
 }

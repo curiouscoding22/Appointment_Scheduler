@@ -6,7 +6,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="568.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Reports">
    <children>
-      <TextArea fx:id="reportTextArea" layoutX="200.0" layoutY="59.0" prefHeight="364.0" prefWidth="310.0" />
+      <TextArea fx:id="reportTextArea" layoutX="227.0" layoutY="32.0" prefHeight="197.0" prefWidth="283.0" />
       <Label layoutX="60.0" layoutY="47.0" text="Reports">
          <font>
             <Font size="24.0" />
@@ -19,5 +19,12 @@
       <Label layoutX="21.0" layoutY="153.0" text="Appointment by Contact:" />
       <ComboBox fx:id="contactSelect" layoutX="13.0" layoutY="177.0" prefWidth="150.0" />
       <Label layoutX="27.0" layoutY="255.0" text="Customers Per Country" />
+      <TableView fx:id="reportOneTable" layoutX="227.0" layoutY="241.0" prefHeight="200.0" prefWidth="283.0">
+        <columns>
+          <TableColumn fx:id="monthColumn" prefWidth="89.20002746582031" text="Month" />
+          <TableColumn fx:id="typeColumn" prefWidth="90.0" text="Type" />
+            <TableColumn fx:id="countColumn" prefWidth="104.0" text="Count" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

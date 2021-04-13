@@ -21,15 +21,53 @@ public class ReportQuery {
      * @throws ClassNotFoundException
      */
     public static String reportOne() throws SQLException, ClassNotFoundException {
-        LocalDateTime current = LocalDateTime.now();
-        LocalDateTime oneMonth = current.plusMonths(1);
-        String reportResult = null;
+        String month = "";
+        String reportResult = "";
         Connection connection = DBConnection.beginConnection();
-        String sqlQuery = "SELECT type, COUNT(*) as 'c' FROM appointments WHERE start >='" + current + "'AND start <'" + oneMonth + "'GROUP BY type";
+        String sqlQuery = "SELECT month(start) as 'month', type, COUNT(*) as 'count' FROM appointments group by month, type";
         PreparedStatement statement = connection.prepareStatement(sqlQuery);
         ResultSet result = statement.executeQuery();
         while(result.next()){
-            reportResult = String.valueOf(result.getInt("c")) + " " + result.getString("type") + " appointment(s) this month.\n";
+            int numMonth = result.getInt("month");
+            switch(numMonth){
+                case 1:
+                    month = "January";
+                    break;
+                case 2:
+                    month = "February";
+                    break;
+                case 3:
+                    month = "March";
+                    break;
+                case 4:
+                    month = "April";
+                    break;
+                case 5:
+                    month = "May";
+                    break;
+                case 6:
+                    month = "June";
+                    break;
+                case 7:
+                    month = "July";
+                    break;
+                case 8:
+                    month = "August";
+                    break;
+                case 9:
+                    month = "September";
+                    break;
+                case 10:
+                    month = "October";
+                    break;
+                case 11:
+                    month = "November";
+                    break;
+                case 12:
+                    month = "December";
+                    break;
+            }
+            reportResult += month/*String.valueOf(result.getInt("month"))*/ + " " + result.getString("type") + " " + (result.getInt("count")) + "\n";
         }
         return reportResult;
     }

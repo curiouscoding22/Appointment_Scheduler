@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,14 +10,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import utils.DBQuery;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
@@ -56,26 +61,26 @@ public class Login implements Initializable {
         userName = usernameField.getText();
         password = passwordField.getText();
 
-        if(userName.equals("test") && password.equals("test")){
+        for(int i = 0; i < User.users.size(); ++i) {
+            User loginUser = User.users.get(i);
+            if (userName.equals(loginUser.getUserName()) && password.equals(loginUser.getPassword())) {
 
-            outputFile.println("Successful: " + userName + " : " + LocalDateTime.now());
-            outputFile.close();
+                outputFile.println("Successful: " + userName + " : " + LocalDateTime.now());
+                outputFile.close();
 
-
-            Parent parent = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
-            Scene scene = new Scene(parent);
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } else{
-
-            outputFile.println("Failed: " + userName + " : " + LocalDateTime.now());
-            outputFile.close();
-            errorMessage.setText("Attempt failed. Please check username and password.");
+                Parent parent = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
+                Scene scene = new Scene(parent);
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                outputFile.println("Failed: " + userName + " : " + LocalDateTime.now());
+                outputFile.close();
+                errorMessage.setText("Attempt failed. Please check username and password.");
+            }
         }
-
-
     }
+
 
     /**This is the initialize method. This method creates an instance that is used to set the time on the login screen.
      * @param url
@@ -84,8 +89,19 @@ public class Login implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        ResourceBundle rb = ResourceBundle.getBundle("language.language", Locale.getDefault());
+
         Instant instant = Instant.now();
         ZonedDateTime userTime = instant.atZone(TimeZone.getDefault().toZoneId());
         timeZoneLocation.setText(userTime.format(DateTimeFormatter.ofPattern("hh:mm a zzzz")));
+
+        try {
+            User.users = DBQuery.getUsers();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 }

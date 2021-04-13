@@ -123,7 +123,7 @@ public class EditAppointment implements Initializable {
             startAMPM.setValue("AM");
         }
         if(start.getMinute() == 0){
-            startMinCombo.setValue("OO");
+            startMinCombo.setValue("00");
         } else if(start.getMinute() == 15){
             startMinCombo.setValue("15");
         } else if(start.getMinute() == 30){
@@ -143,7 +143,7 @@ public class EditAppointment implements Initializable {
             endAMPM.setValue("AM");
         }
         if(end.getMinute() == 0){
-            endMinCombo.setValue("OO");
+            endMinCombo.setValue("00");
         } else if(end.getMinute() == 15){
             endMinCombo.setValue("15");
         } else if(end.getMinute() == 30){

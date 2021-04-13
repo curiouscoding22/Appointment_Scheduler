@@ -136,7 +136,7 @@ public class DBQuery {
             User user = new User();
             user.setUserID(result.getInt("user_ID"));
             user.setUserName(result.getString("user_name"));
-            user.setPassword("password");
+            user.setPassword(result.getString("password"));
             users.add(user);
         }
         return users;
