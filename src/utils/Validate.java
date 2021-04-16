@@ -2,11 +2,10 @@ package utils;
 
 import Model.Appointment;
 import javafx.scene.control.Alert;
-
 import java.time.*;
-import java.time.chrono.ChronoLocalDateTime;
-import java.time.chrono.ChronoZonedDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 /**
  * This is the validation class. This class contains methods used to assist the user in validating appointment times and alerting them in the case of a rapidly approaching appointment when they log in.
@@ -18,13 +17,17 @@ public class Validate {
      * @return
      */
     public static boolean businessHoursCheck(Appointment appointment){
-        ZonedDateTime startTime = appointment.getStart().atZone(ZoneId.of("America/New_York"));
-        ZonedDateTime endTime = appointment.getEnd().atZone(ZoneId.of("America/New_York"));
 
-        ZonedDateTime businessOpen = ZonedDateTime.of(startTime.toLocalDate(), LocalTime.of(8, 00), ZoneId.of("America/New_York"));
-        ZonedDateTime businessClose = ZonedDateTime.of(endTime.toLocalDate(), LocalTime.of(22, 00), ZoneId.of("America/New_York"));
+        ZonedDateTime start = appointment.getStart().atZone(ZoneId.systemDefault());
+        ZonedDateTime end = appointment.getEnd().atZone(ZoneId.systemDefault());
 
-        if((startTime.isEqual(businessOpen) || startTime.isAfter(businessOpen)) && startTime.isBefore(businessClose) && endTime.isAfter(businessOpen) && (endTime.isBefore(businessClose) || endTime.isEqual(businessClose))){
+        ZonedDateTime zonedStartTime = start.withZoneSameInstant(ZoneId.of("America/New_York"));
+        ZonedDateTime zonedEndTime = end.withZoneSameInstant(ZoneId.of("America/New_York"));
+
+        ZonedDateTime businessOpen = ZonedDateTime.of(zonedStartTime.toLocalDate(), LocalTime.of(8, 00), ZoneId.of("America/New_York"));
+        ZonedDateTime businessClose = ZonedDateTime.of(zonedEndTime.toLocalDate(), LocalTime.of(22, 00), ZoneId.of("America/New_York"));
+
+        if((zonedStartTime.isEqual(businessOpen) || zonedStartTime.isAfter(businessOpen)) && zonedStartTime.isBefore(businessClose) && zonedEndTime.isAfter(businessOpen) && (zonedEndTime.isBefore(businessClose) || zonedEndTime.isEqual(businessClose))){
             return true;
         }
         return false;
@@ -41,7 +44,7 @@ public class Validate {
 
         for(int i = 0; i < Appointment.appointments.size(); ++i) {
             Appointment app = (Appointment) Appointment.appointments.get(i);
-            if (appointment.getCustomerID() == app.getCustomerID()) {
+            if (appointment.getCustomerID() == app.getCustomerID() && appointment.getAppointmentID() != app.getAppointmentID()) {
                 if(checkStart.isEqual(app.getStart()) || (checkStart.isAfter(app.getStart()) && checkStart.isBefore(app.getEnd()))){
                     System.out.println("Start is overlapping");
                     isOverlapping = true;
@@ -61,23 +64,19 @@ public class Validate {
     public static boolean fifteenMinuteWarning(){
         LocalDateTime userLogin = LocalDateTime.now();
         LocalDateTime checkWindow = userLogin.plusMinutes(15);
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.SHORT);
         for (int i = 0; i < Appointment.appointments.size(); ++i) {
             Appointment app = (Appointment) Appointment.appointments.get(i);
             if (app.getStart().isAfter(userLogin) && app.getStart().isBefore(checkWindow)) {
+                String startTime = timeFormat.format(app.getStart());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setResizable(true);
                 alert.setTitle("Appointment Soon");
-                alert.setContentText("Appointment ID: " + app.getAppointmentID() + " at " + app.getStart().format(DateTimeFormatter.ofPattern("hh:mm a zzzz")) + " is starting soon.");
+                alert.setContentText("Appointment ID: " + app.getAppointmentID() + " at " + startTime + " is starting soon.");
                 alert.showAndWait();
                 return true;
-            } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Appointment Alert");
-                alert.setContentText("No appointments within 15 minutes.");
-                alert.showAndWait();
-                break;
             }
         }
         return false;
     }
-
 }

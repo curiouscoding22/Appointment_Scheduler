@@ -60,7 +60,15 @@ public class MainScreen implements Initializable {
             e.printStackTrace();
         }
 
-        if(Validate.fifteenMinuteWarning());
+        if(Validate.fifteenMinuteWarning()){
+            System.out.println("Upcoming appointment");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Appointment Alert");
+            alert.setContentText("No appointments within 15 minutes.");
+            alert.showAndWait();
+
+        }
 
         appointmentTable.setItems(Appointment.appointments);
 

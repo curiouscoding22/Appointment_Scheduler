@@ -226,7 +226,7 @@ public class EditAppointment implements Initializable {
 
         Appointment updateAppointment = new Appointment(updateID, updateTitle, updateDesc, updateLocation, updateType, startMeeting, endMeeting, custIDUpdate, userUpdate, updateConID, updateContact);
 
-        if(!Validate.businessHoursCheck(appointment)){
+        if(!Validate.businessHoursCheck(updateAppointment)){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Business Hours");
             alert.setContentText("Please select times within business hours.");

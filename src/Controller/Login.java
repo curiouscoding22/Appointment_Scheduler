@@ -38,6 +38,11 @@ public class Login implements Initializable {
     @FXML private Button loginButton;
     @FXML private Label timeZoneLocation;
     @FXML private Label errorMessage;
+    @FXML private Label appTitle;
+    @FXML private Label usernameLabel;
+    @FXML private Label passwordLabel;
+
+    ResourceBundle rb = ResourceBundle.getBundle("Language.language", Locale.getDefault());
 
 
     /**This is the login method. This method confirms the correct username and password have been entered and opens the application. If it has not been entered, the user is prompted to fix the error.
@@ -53,8 +58,8 @@ public class Login implements Initializable {
 
         if(usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Input Error");
-            alert.setContentText("Please enter the username or password");
+            alert.setTitle(rb.getString("missLoginTitle"));
+            alert.setContentText(rb.getString("missingLogin"));
             alert.showAndWait();
         }
 
@@ -76,7 +81,7 @@ public class Login implements Initializable {
             } else {
                 outputFile.println("Failed: " + userName + " : " + LocalDateTime.now());
                 outputFile.close();
-                errorMessage.setText("Attempt failed. Please check username and password.");
+                errorMessage.setText(rb.getString("errorAlert"));
             }
         }
     }
@@ -89,7 +94,10 @@ public class Login implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        ResourceBundle rb = ResourceBundle.getBundle("language.language", Locale.getDefault());
+        appTitle.setText(rb.getString("title"));
+        usernameLabel.setText(rb.getString("username"));
+        passwordLabel.setText(rb.getString("password"));
+        loginButton.setText(rb.getString("login"));
 
         Instant instant = Instant.now();
         ZonedDateTime userTime = instant.atZone(TimeZone.getDefault().toZoneId());
