@@ -2,10 +2,6 @@
 C195 Final Assessment v1.0
 4/11/2021
 
-Blake Lambert
-Student ID: 001337333
-blamb52@my.wgu.edu
-
 IntelliJ Community Version 2020.3.3
 Java SE 11.0.10
 JavaFX SDK 11.0.2
